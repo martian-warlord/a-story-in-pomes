@@ -1,11 +1,13 @@
 function initialize() {
 
+
     var mapOptions = {
         center: {
-            lat: 39,
-            lng: -99
+            // lat: 39,
+lat: 34.02,
+lng: -5
         },
-        zoom: 5,
+        zoom: 16,
 
         // disables scroll-initiated zooming
         scrollwheel: false,
@@ -18,7 +20,7 @@ function initialize() {
         overviewMapControl: false,
 
         //display satellite map w high level labels as default
-        mapTypeId: google.maps.MapTypeId.HYBRID,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
     };
 
     var styles = [
@@ -42,28 +44,29 @@ function initialize() {
     var markers = [];
     // items added to this list will be added to the navigation map at the top of the site
     markers[0] = new google.maps.Marker({
-        position: new google.maps.LatLng(42.333172, -83.044960),
+        position: new google.maps.LatLng(34.03, -5.1),
+
         map: map,
         icon: icon,
         title: 'Detroit, MI',
         url: '#detroit'
     });
     markers[1] = new google.maps.Marker({
-        position: new google.maps.LatLng(38.004111, -80.944114),
+        position: new google.maps.LatLng(34.00, -5),
         map: map,
         icon: icon,
         title: 'Clifftop, WV',
         url: '#clifftop'
     });
     markers[2] = new google.maps.Marker({
-        position: new google.maps.LatLng(34.056915, -118.248311),
+        position: new google.maps.LatLng(34.00, -4.8),
         map: map,
         icon: icon,
         title: 'Los Angelas, CA',
         url: '#la'
     });
     markers[3] = new google.maps.Marker({
-        position: new google.maps.LatLng(28.539998, -81.370123),
+        position: new google.maps.LatLng(34.04, -5),
         icon: icon,
         map: map,
         title: 'Orlando, FL',
