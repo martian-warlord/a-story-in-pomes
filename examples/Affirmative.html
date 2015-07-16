@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<link href='http://fonts.googleapis.com/css?family=Lato%7CCherry+Cream+Soda%7CCookie' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body>
+<div id="alt-splash">
+</div>
+</body>
+<script src="d3/d3.js"></script>
+<script src="../d3.layout.cloud.js"></script>
+<script>
+
+(function() {
+
+var fill = d3.scale.category20();
+
+var layout = d3.layout.cloud()
+    .size([480, 480])
+    .words(["Loved", "Winning", "Free", "Attractive", "Healthy", "Relaxed", "Fierce", "Powerful", "Valuable", "Strong","Wonderful", "Sexy", "Growing", "Successful", "Fierce", "Deliscious", "Peaceful", "Happy", "Attractive", "Confident", "Grounded", "Beautiful", "Awesome", "Fantastic", "Peaceful", "Lucky", "SuperDuper", "Free"].map(function(d) {
+      return {text: d, size: 10 + Math.random() * 90, test: "Sexy"};
+    }))
+    .padding(5)
+    .rotate(function() { return ~~(Math.random() * 2) * 90; })
+    .font("Cherry Cream Soda")
+    .fontSize(function(d) { return d.size; })
+    .on("end", draw);
+
+layout.start();
+
+function draw(words) {
+  d3.select("#alt-splash").append("svg")
+      .attr("width", layout.size()[0])
+      .attr("height", layout.size()[1])
+    .append("g")
+      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+    .selectAll("text")
+      .data(words)
+    .enter().append("text")
+      .style("font-size", function(d) { return d.size + "px"; })
+      .style("font-family", "Cherry Cream Soda")
+      .style("fill", function(d, i) { return fill(i); })
+      .attr("id", function(d, i) {return  d["text"]}) //  ID ADDED HERE FOR MENU SELECTION  
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d) {
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+      })
+      .text(function(d) { return d.text; })
+.on("click", 
+  function(d) {
+  eval(d.text + '();');
+})
+      ;
+}
+
+
+function Loved() {
+  hideSVG();
+
+
+};
+
+function Winning() {
+  hideSVG();
+};
+
+function Free() {
+  hideSVG();
+};
+
+function Attractive() {
+  hideSVG();
+};
+
+function Healthy() {
+  hideSVG();
+};
+
+function Relaxed() {
+  hideSVG();
+};
+
+function Fierce() {
+  hideSVG();
+};
+
+function Powerful() {
+  hideSVG();
+};
+
+function Valuable() {
+  hideSVG();
+};
+
+function Strong() {
+  hideSVG();
+};
+
+function Wonderful() {
+  hideSVG();
+};
+
+function Sexy() {
+  hideSVG();
+};
+
+function Growing() {
+  hideSVG();
+};
+
+function Successful() {
+  hideSVG();
+};
+
+function Fierce() {
+  hideSVG();
+};
+
+function Deliscious() {
+  hideSVG();
+};
+
+function Peaceful() {
+  hideSVG();
+};
+
+function Happy() {
+  hideSVG();
+};
+
+function Attractive() {
+  hideSVG();
+};
+
+function Confident() {
+  hideSVG();
+};
+
+function Grounded() {
+  hideSVG();
+};
+
+function Beautiful() {
+  hideSVG();
+};
+
+function Awesome() {
+  hideSVG();
+};
+
+function Fantastic() {
+  hideSVG();
+};
+
+function Peaceful() {
+  hideSVG();
+};
+
+function Lucky() {
+  hideSVG();
+};
+
+function SuperDuper() {
+  hideSVG();
+};
+
+function Free() {
+  hideSVG();
+};
+
+
+
+
+
+function hideSVG() {
+  console.log("Kapow!");
+};
+
+
+
+
+
+})();
+
+
+
+
+// window.onload = function(){
+  
+
+// var Loved_toggle = document.getElementById('Loved');
+// Loved_toggle.addEventListener('click', Loved);
+
+// var Winning_toggle = document.getElementById('Winning');
+// Winning_toggle.addEventListener('click', Winning);
+
+// var Free_toggle = document.getElementById('Free');
+// Free_toggle.addEventListener('click', Free);
+
+// var Attractive_toggle = document.getElementById('Attractive');
+// Attractive_toggle.addEventListener('click', Attractive);
+
+// var Healthy_toggle = document.getElementById('Healthy');
+// Healthy_toggle.addEventListener('click', Healthy);
+
+// var Relaxed_toggle = document.getElementById('Relaxed');
+// Relaxed_toggle.addEventListener('click', Relaxed);
+
+// var Fierce_toggle = document.getElementById('Fierce');
+// Fierce_toggle.addEventListener('click', Fierce);
+
+// var Powerful_toggle = document.getElementById('Powerful');
+// Powerful_toggle.addEventListener('click', Powerful);
+
+// var Valuable_toggle = document.getElementById('Valuable');
+// Valuable_toggle.addEventListener('click', Valuable);
+
+// var Strong_toggle = document.getElementById('Strong');
+// Strong_toggle.addEventListener('click', Strong);
+
+// var Wonderful_toggle = document.getElementById('Wonderful');
+// Wonderful_toggle.addEventListener('click', Wonderful);
+
+// var Sexy_toggle = document.getElementById('Sexy');
+// Sexy_toggle.addEventListener('click', Sexy);
+
+// var Growing_toggle = document.getElementById('Growing');
+// Growing_toggle.addEventListener('click', Growing);
+
+// var Successful_toggle = document.getElementById('Successful');
+// Successful_toggle.addEventListener('click', Successful);
+
+// var Fierce_toggle = document.getElementById('Fierce');
+// Fierce_toggle.addEventListener('click', Fierce);
+
+// var Deliscious_toggle = document.getElementById('Deliscious');
+// Deliscious_toggle.addEventListener('click', Deliscious);
+
+// var Peaceful_toggle = document.getElementById('Peaceful');
+// Peaceful_toggle.addEventListener('click', Peaceful);
+
+// var Happy_toggle = document.getElementById('Happy');
+// Happy_toggle.addEventListener('click', Happy);
+
+// var Attractive_toggle = document.getElementById('Attractive');
+// Attractive_toggle.addEventListener('click', Attractive);
+
+// var Confident_toggle = document.getElementById('Confident');
+// Confident_toggle.addEventListener('click', Confident);
+
+// var Grounded_toggle = document.getElementById('Grounded');
+// Grounded_toggle.addEventListener('click', Grounded);
+
+// var Beautiful_toggle = document.getElementById('Beautiful');
+// Beautiful_toggle.addEventListener('click', Beautiful);
+
+// var Awesome_toggle = document.getElementById('Awesome');
+// Awesome_toggle.addEventListener('click', Awesome);
+
+// var Fantastic_toggle = document.getElementById('Fantastic');
+// Fantastic_toggle.addEventListener('click', Fantastic);
+
+// var Peaceful_toggle = document.getElementById('Peaceful');
+// Peaceful_toggle.addEventListener('click', Peaceful);
+
+// var Lucky_toggle = document.getElementById('Lucky');
+// Lucky_toggle.addEventListener('click', Lucky);
+
+// var SuperDuper_toggle = document.getElementById('SuperDuper');
+// SuperDuper_toggle.addEventListener('click', SuperDuper);
+
+// var Free_toggle = document.getElementById('Free');
+// Free_toggle.addEventListener('click', Free);
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
