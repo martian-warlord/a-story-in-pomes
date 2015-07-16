@@ -61,7 +61,7 @@
 </div>
 
 <div id="myCard" class="flip-container" ontouchstart="this.classList.toggle('hover');">
-  <div class="flipper">
+  <div id="front" class="flipper">
     <div class="front">
       <!-- front content -->
     </div>
@@ -80,6 +80,33 @@
 <script>
 
 var loved = [];
+var winning = [];
+var free = [];
+var attractive = [];
+var healthy = [];
+var relaxed = [];
+var fierce = [];
+var powerful = [];
+var valuable = [];
+var strong = [];
+var wonderful = [];
+var sexy = [];
+var growing = [];
+var successful = [];
+var fierce = [];
+var deliscious = [];
+var peaceful = [];
+var happy = [];
+var attractive = [];
+var confident = [];
+var grounded = [];
+var beautiful = [];
+var awesome = [];
+var fantastic = [];
+var peaceful = [];
+var lucky = [];
+var superDuper = [];
+var free = [];
 
 
 (function() {
@@ -158,7 +185,7 @@ winning[3] = "delivery quest";
 
 
 var which_winning_quest = Math.round(Math.random()*(winning.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + winning[which_winning_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + winning[which_winning_quest] + "</P>";
 
 
 };
@@ -172,7 +199,7 @@ free[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_free_quest = Math.round(Math.random()*(free.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + free[which_free_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + free[which_free_quest] + "</P>";
 
 };
 
@@ -185,7 +212,7 @@ attractive[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_attractive_quest = Math.round(Math.random()*(attractive.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + attractive[which_attractive_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + attractive[which_attractive_quest] + "</P>";
 
 };
 
@@ -198,7 +225,7 @@ healthy[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_healthy_quest = Math.round(Math.random()*(healthy.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + healthy[which_healthy_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + healthy[which_healthy_quest] + "</P>";
 
 };
 
@@ -211,7 +238,7 @@ relaxed[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_relaxed_quest = Math.round(Math.random()*(relaxed.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + free[which_relaxed_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + free[which_relaxed_quest] + "</P>";
 
 };
 
@@ -224,7 +251,7 @@ fierce[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_fierce_quest = Math.round(Math.random()*(fierce.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + fierce[which_fierce_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + fierce[which_fierce_quest] + "</P>";
 
 };
 
@@ -237,7 +264,7 @@ powerful[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_powerful_quest = Math.round(Math.random()*(powerful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + powerful[which_powerful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + powerful[which_powerful_quest] + "</P>";
 
 };
 
@@ -250,7 +277,7 @@ valuable[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_valuable_quest = Math.round(Math.random()*(valuable.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + valuable[which_valuable_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + valuable[which_valuable_quest] + "</P>";
 
 };
 
@@ -263,7 +290,7 @@ strong[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_strong_quest = Math.round(Math.random()*(strong.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + strong[which_strong_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + strong[which_strong_quest] + "</P>";
 
 };
 
@@ -276,7 +303,7 @@ wonderful[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_wonderful_quest = Math.round(Math.random()*(wonderful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + wonderful[which_wonderful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + wonderful[which_wonderful_quest] + "</P>";
 
 };
 
@@ -289,7 +316,7 @@ sexy[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_sexy_quest = Math.round(Math.random()*(sexy.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + sexy[which_sexy_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + sexy[which_sexy_quest] + "</P>";
 
 };
 
@@ -302,7 +329,7 @@ growing[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_growing_quest = Math.round(Math.random()*(growing.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + growing[which_growing_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + growing[which_growing_quest] + "</P>";
 
 };
 
@@ -315,7 +342,7 @@ successful[2] = "delivery quest";
 // LET'S BEGIN
 
 var which_successful_quest = Math.round(Math.random()*(successful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + successful[which_successful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + successful[which_successful_quest] + "</P>";
 
 };
 
@@ -328,7 +355,7 @@ fierce[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_fierce_quest = Math.round(Math.random()*(fierce.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + fierce[which_fierce_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + fierce[which_fierce_quest] + "</P>";
 
 };
 
@@ -341,7 +368,7 @@ deliscious[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_deliscious_quest = Math.round(Math.random()*(deliscious.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + deliscious[which_deliscious_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + deliscious[which_deliscious_quest] + "</P>";
 
 };
 
@@ -354,7 +381,7 @@ peaceful[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_peaceful_quest = Math.round(Math.random()*(peaceful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + peaceful[which_peaceful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + peaceful[which_peaceful_quest] + "</P>";
 
 };
 
@@ -367,7 +394,7 @@ happy[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_happy_quest = Math.round(Math.random()*(happy.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + happy[which_happy_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + happy[which_happy_quest] + "</P>";
 
 };
 
@@ -380,7 +407,7 @@ atractive[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_atractive_quest = Math.round(Math.random()*(atractive.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + atractive[which_atractive_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + atractive[which_atractive_quest] + "</P>";
 
 };
 
@@ -393,7 +420,7 @@ confident[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_confident_quest = Math.round(Math.random()*(confident.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + confident[which_confident_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + confident[which_confident_quest] + "</P>";
 
 };
 
@@ -406,7 +433,7 @@ grounded[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_grounded_quest = Math.round(Math.random()*(grounded.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + grounded[which_grounded_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + grounded[which_grounded_quest] + "</P>";
 
 };
 
@@ -419,7 +446,7 @@ beautiful[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_beautiful_quest = Math.round(Math.random()*(beautiful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + beautiful[which_beautiful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + beautiful[which_beautiful_quest] + "</P>";
 
 };
 
@@ -432,7 +459,7 @@ awesome[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_awesome_quest = Math.round(Math.random()*(awesome.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + awesome[which_awesome_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + awesome[which_awesome_quest] + "</P>";
 
 };
 
@@ -445,7 +472,7 @@ fantastic[3] = "delivery quest";
 // LET'S BEGIN
 
 var which_fantastic_quest = Math.round(Math.random()*(fantastic.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + fantastic[which_fantastic_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + fantastic[which_fantastic_quest] + "</P>";
 
 };
 
@@ -468,7 +495,7 @@ peaceful[11] = "Visualize world peace."
 peaceful[12] = "Apologize for anything you feel guilty about."
 
 var which_peaceful_quest = Math.round(Math.random()*(peaceful.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + peaceful[which_peaceful_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + peaceful[which_peaceful_quest] + "</P>";
 
 };
 
@@ -484,7 +511,7 @@ lucky[5] = "Volunteer at a homeless shelter.";
 lucky[6] = "Take a friend out to Chinese food, and read fortune cookies together";
 
 var which_lucky_quest = Math.round(Math.random()*(lucky.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + lucky[which_lucky_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + lucky[which_lucky_quest] + "</P>";
 
 
 };
@@ -497,7 +524,7 @@ superduper[2] = "escort quest";
 superduper[3] = "delivery quest";
 
 var which_superduper_quest = Math.round(Math.random()*(superduper.length - 1));
-document.getElementById('quest_box').innerHTML = "<p>" + superduper[which_superduper_quest] + "</P>";
+document.getElementById('back').innerHTML = "<p>" + superduper[which_superduper_quest] + "</P>";
 
 };
 
