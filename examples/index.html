@@ -28,6 +28,9 @@
               perspective: 800px;
     }
 
+
+
+
     #card {
       width: 100%;
       height: 100%;
@@ -59,7 +62,7 @@
       color: white;
       text-align: center;
       font-weight: bold;
-      font-size: 140px;
+      font-size: 40px;
       position: absolute;
       border-radius: 0.5em;
       -webkit-backface-visibility: hidden;
@@ -70,7 +73,7 @@
 
     #card .front {
     	border: 1px solid #CCC;
-      /*background: red;*/
+      background: white;
     }
 
     #card .back {
@@ -79,6 +82,25 @@
          -moz-transform: rotateY( 180deg );
            -o-transform: rotateY( 180deg );
               transform: rotateY( 180deg );
+    }
+
+
+
+    body{
+
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2ff52+0,91e842+100;Neon */
+background: #d2ff52; /* Old browsers */
+background: -moz-linear-gradient(top, #d2ff52 0%, #91e842 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d2ff52), color-stop(100%,#91e842)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #d2ff52 0%,#91e842 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #d2ff52 0%,#91e842 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #d2ff52 0%,#91e842 100%); /* IE10+ */
+background: linear-gradient(to bottom, #d2ff52 0%,#91e842 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
+copy
+
+
     }
 
 
@@ -96,7 +118,7 @@
   <section class="container">
     <div id="card">
       <div class="front"><div id="alt-splash"></div></div>
-      <div class="back"></div>
+      <div class="back" id="back"></div>
     </div>
   </section>
 
@@ -569,117 +591,15 @@ document.getElementById('back').innerHTML = "<p>" + superduper[which_superduper_
 
 
 function hideSVG() {
-  console.log("Kapow!");
-  document.querySelector("#alt-splash").style.visibility = "hidden";
-  document.querySelector("#myCard").classList.toggle("flip");
+  // console.log("Kapow!");
+  // document.querySelector("#alt-splash").style.visibility = "hidden";
+  document.querySelector("#card").toggleClassName("flipped");
 };
 
-
-
+// flipped
 
 
 })();
-
-
-
-
-// window.onload = function(){
-  
-
-// var Loved_toggle = document.getElementById('Loved');
-// Loved_toggle.addEventListener('click', Loved);
-
-// var Winning_toggle = document.getElementById('Winning');
-// Winning_toggle.addEventListener('click', Winning);
-
-// var Free_toggle = document.getElementById('Free');
-// Free_toggle.addEventListener('click', Free);
-
-// var Attractive_toggle = document.getElementById('Attractive');
-// Attractive_toggle.addEventListener('click', Attractive);
-
-// var Healthy_toggle = document.getElementById('Healthy');
-// Healthy_toggle.addEventListener('click', Healthy);
-
-// var Relaxed_toggle = document.getElementById('Relaxed');
-// Relaxed_toggle.addEventListener('click', Relaxed);
-
-// var Fierce_toggle = document.getElementById('Fierce');
-// Fierce_toggle.addEventListener('click', Fierce);
-
-// var Powerful_toggle = document.getElementById('Powerful');
-// Powerful_toggle.addEventListener('click', Powerful);
-
-// var Valuable_toggle = document.getElementById('Valuable');
-// Valuable_toggle.addEventListener('click', Valuable);
-
-// var Strong_toggle = document.getElementById('Strong');
-// Strong_toggle.addEventListener('click', Strong);
-
-// var Wonderful_toggle = document.getElementById('Wonderful');
-// Wonderful_toggle.addEventListener('click', Wonderful);
-
-// var Sexy_toggle = document.getElementById('Sexy');
-// Sexy_toggle.addEventListener('click', Sexy);
-
-// var Growing_toggle = document.getElementById('Growing');
-// Growing_toggle.addEventListener('click', Growing);
-
-// var Successful_toggle = document.getElementById('Successful');
-// Successful_toggle.addEventListener('click', Successful);
-
-// var Fierce_toggle = document.getElementById('Fierce');
-// Fierce_toggle.addEventListener('click', Fierce);
-
-// var Deliscious_toggle = document.getElementById('Deliscious');
-// Deliscious_toggle.addEventListener('click', Deliscious);
-
-// var Peaceful_toggle = document.getElementById('Peaceful');
-// Peaceful_toggle.addEventListener('click', Peaceful);
-
-// var Happy_toggle = document.getElementById('Happy');
-// Happy_toggle.addEventListener('click', Happy);
-
-// var Attractive_toggle = document.getElementById('Attractive');
-// Attractive_toggle.addEventListener('click', Attractive);
-
-// var Confident_toggle = document.getElementById('Confident');
-// Confident_toggle.addEventListener('click', Confident);
-
-// var Grounded_toggle = document.getElementById('Grounded');
-// Grounded_toggle.addEventListener('click', Grounded);
-
-// var Beautiful_toggle = document.getElementById('Beautiful');
-// Beautiful_toggle.addEventListener('click', Beautiful);
-
-// var Awesome_toggle = document.getElementById('Awesome');
-// Awesome_toggle.addEventListener('click', Awesome);
-
-// var Fantastic_toggle = document.getElementById('Fantastic');
-// Fantastic_toggle.addEventListener('click', Fantastic);
-
-// var Peaceful_toggle = document.getElementById('Peaceful');
-// Peaceful_toggle.addEventListener('click', Peaceful);
-
-// var Lucky_toggle = document.getElementById('Lucky');
-// Lucky_toggle.addEventListener('click', Lucky);
-
-// var SuperDuper_toggle = document.getElementById('SuperDuper');
-// SuperDuper_toggle.addEventListener('click', SuperDuper);
-
-// var Free_toggle = document.getElementById('Free');
-// Free_toggle.addEventListener('click', Free);
-
-
-
-
-
-
-
-
-
-
-
 
 
 </script>
