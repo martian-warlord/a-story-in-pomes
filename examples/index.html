@@ -36,6 +36,7 @@
       height: 100%;
 
       border-radius: 0.5em;
+
       position: absolute;
       -webkit-transition: -webkit-transform 1s;
          -moz-transition: -moz-transform 1s;
@@ -58,13 +59,14 @@
       display: block;
       height: 100%;
       width: 100%;
-      line-height: 260px;
+      line-height: 50px;
       color: white;
       text-align: center;
       font-weight: bold;
       font-size: 40px;
       position: absolute;
       border-radius: 0.5em;
+      box-shadow: 0 0 0.5em #91e842;
       -webkit-backface-visibility: hidden;
          -moz-backface-visibility: hidden;
            -o-backface-visibility: hidden;
@@ -77,14 +79,30 @@
     }
 
     #card .back {
-      background: blue;
+      background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ff3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,255,1)), color-stop(100%, rgba(61,4,204,1))); /* safari4+,chrome */
+background:-webkit-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* safari5.1+,chrome10+ */
+background: -o-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* opera 11.10+ */
+background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ie10+ */
+background:radial-gradient(ellipse at center, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0000FF', endColorstr='#3D04CC',GradientType=1 ); /* ie6-9 */
       -webkit-transform: rotateY( 180deg );
          -moz-transform: rotateY( 180deg );
            -o-transform: rotateY( 180deg );
               transform: rotateY( 180deg );
     }
 
-
+#pics {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    text-align: center;
+}
+ 
+#pics img{
+    width: 33%;
+    height: 33%;
+}
 
     body{
 
@@ -107,23 +125,55 @@ copy
   </style>
 
 </head>
-<body>
 
-<section id="options">
+<!--   #################################### BODY #####################################-->
+
+
+<body id='mySquare'>
+
+<!-- <section id="options">
     <p><button id="flip">Flip Card</button></p>
-</section>
+</section> -->
 
 
 
-  <section class="container">
+  <section class="container"  >
     <div id="card">
       <div class="front"><div id="alt-splash"></div></div>
       <div class="back" id="back"></div>
     </div>
+
+    <!-- <div id='mySquare'></div> -->
   </section>
 
 
 
+
+<!--   #################################### BODY #####################################-->
+
+<script>
+// This is where you can put your JavaScript
+    // Grab our square
+    var square = document.getElementById('mySquare');
+    var setBackgroundImage = function(element, url) {
+        // set the background image to a url
+        element.style.backgroundImage = 'url(' + url + ')';
+    };
+    var randomImageURL = function(flickrData) {
+        // Get a random image's url from the data flickr gives us
+        var randomInteger = Math.floor(Math.random() * flickrData.items.length);
+        return flickrData.items[randomInteger].media.m; // You can figure out this formatting by looking at the dictionaries in https://api.flickr.com/services/feeds/photos_public.gne?format=json
+    };
+    // This is a specially named function which is called by our script request (below) to flickr. If you go to https://api.flickr.com/services/feeds/photos_public.gne?format=json in your browser, you'll notice that it returns a bunch of JavaScript, all passed to a function called jsonFlickrFeed.
+    var jsonFlickrFeed = function(data) {
+        // set the background image to a random image from flickr
+        setBackgroundImage(square, randomImageURL(data));
+    };
+</script>
+
+    <script src='https://api.flickr.com/services/feeds/photos_public.gne?format=json'>
+    // This is where the magic happens; This is a technique called JSONP, which you can read more about at http://en.wikipedia.org/wiki/JSONP
+    </script>
 
 
   <script src="js/utils.js"></script>
@@ -132,8 +182,12 @@ copy
 
   <script src="d3/d3.js"></script>
 <script src="../d3.layout.cloud.js"></script>
+
+
+</body>
+
 <script>
-console.log("test");
+
 
 var loved = [];
 var winning = [];
@@ -608,5 +662,4 @@ function hideSVG() {
 
 
 
-</body>
 </html>
