@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+
+<!-- add D3 color array
+add background photopicker
+fill in actions
+camera capture function
+camera api -->
+
   <meta charset="utf-8" />
   
   <!-- disable zooming -->
@@ -127,6 +135,8 @@ copy
     }
     }
 
+    img{height:200px;}
+
 
   </style>
 
@@ -135,7 +145,7 @@ copy
 <!--   #################################### BODY #####################################-->
 
 
-<body id='images'>
+<body id='mySquare'>
 
 <!-- <section id="options">
     <p><button id="flip">Flip Card</button></p>
@@ -155,10 +165,14 @@ copy
 
 
 
-<!--   #################################### BODY #####################################-->
+<!--   #################################### BODY #####################################   -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 (function() {
+
+var pickacard = Math.floor(Math.random() * (19 + 1));
+var square = document.getElementById('mySquare');
+
   var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
   $.getJSON( flickerAPI, {
     tags: "attractive",
@@ -167,11 +181,23 @@ copy
   })
     .done(function( data ) {
       $.each( data.items, function( i, item ) {
-        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        if ( i === 3 ) {
+
+
+
+if (i == pickacard){
+        // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        var square = document.getElementById('mySquare');
+        square.style.backgroundImage = 'url(' + item.media.m + ')';
+
+      };
+
+
+        if ( i === 20 ) {
           return false;
         }
       });
+
+
     });
 })();
 </script>
@@ -274,12 +300,12 @@ loved[1] = "gather quest";
 loved[2] = "escort quest";
 loved[3] = "delivery quest";
 // LET'S BEGIN
-loved[4] = "Call three people from your family."
-loved[5] = "Call three good friends."
-loved[6] = "Call a romantic interest."
-loved[7] = "Play with a pet."
-loved[8] = "Scratch a dog, pet a cat."
-loved[9] = "Take a romantic interest out to dinner."
+loved[4] = "Call three people from your family.";
+loved[5] = "Call three good friends.";
+loved[6] = "Call a romantic interest.";
+loved[7] = "Play with a pet.";
+loved[8] = "Scratch a dog, pet a cat.";
+loved[9] = "Take a romantic interest out to dinner.";
 
 
 var which_loved_quest = Math.round(Math.random()*(loved.length - 1));
@@ -296,6 +322,9 @@ winning[1] = "gather quest";
 winning[2] = "escort quest";
 winning[3] = "delivery quest";
 // LET'S BEGIN
+winning[4] = "Remember your three biggest victories in life.";
+winning[5] = "Play a game that you have mastered.";
+winning[5] = "Volunteer as a tutor.";
 
 
 var which_winning_quest = Math.round(Math.random()*(winning.length - 1));
@@ -311,6 +340,8 @@ free[1] = "gather quest";
 free[2] = "escort quest"; 
 free[3] = "delivery quest";
 // LET'S BEGIN
+free[4] = "Take a walk in the woods.";
+free[5] = "Walk or drive randomly around your neighborhood until you get lost.";
 
 var which_free_quest = Math.round(Math.random()*(free.length - 1));
 document.getElementById('back').innerHTML = "<p>" + free[which_free_quest] + "</P>";
@@ -324,6 +355,15 @@ attractive[1] = "gather quest";
 attractive[2] = "escort quest";
 attractive[3] = "delivery quest";
 // LET'S BEGIN
+attractive[4] = "Look in the mirror and say: I AM VERY ATTRACTIVE";
+attractive[5] = "Get a haircut.";
+attractive[6] = "Flirt with some one.";
+attractive[7] = "Ask a loved one what is your best feature.";
+attractive[8] = "Ask a loved one what is your best outfit.";
+attractive[9] = "Make eye contact with some one who is attractive and smile.";
+attractive[10] = "Make eye contact with some one who is attractive and wave.";
+attractive[11] = "Smile.";
+
 
 var which_attractive_quest = Math.round(Math.random()*(attractive.length - 1));
 document.getElementById('back').innerHTML = "<p>" + attractive[which_attractive_quest] + "</P>";
@@ -337,6 +377,7 @@ healthy[1] = "gather quest";
 healthy[2] = "escort quest";
 healthy[3] = "delivery quest";
 // LET'S BEGIN
+
 
 var which_healthy_quest = Math.round(Math.random()*(healthy.length - 1));
 document.getElementById('back').innerHTML = "<p>" + healthy[which_healthy_quest] + "</P>";
@@ -428,6 +469,9 @@ sexy[1] = "gather quest";
 sexy[2] = "escort quest";
 sexy[3] = "delivery quest";
 // LET'S BEGIN
+sexy[4] = "Read a love poem to some one you love.";
+sexy[5] = "For the rest of the day, if you see a sexy person, compliment something about them.";
+sexy[6] = "Eat an erotic pastry.";
 
 var which_sexy_quest = Math.round(Math.random()*(sexy.length - 1));
 document.getElementById('back').innerHTML = "<p>" + sexy[which_sexy_quest] + "</P>";
@@ -441,6 +485,7 @@ growing[1] = "gather quest";
 growing[2] = "escort quest";
 growing[3] = "delivery quest";
 // LET'S BEGIN
+
 
 var which_growing_quest = Math.round(Math.random()*(growing.length - 1));
 document.getElementById('back').innerHTML = "<p>" + growing[which_growing_quest] + "</P>";
@@ -506,24 +551,26 @@ happy[1] = "gather quest";
 happy[2] = "escort quest";
 happy[3] = "delivery quest";
 // LET'S BEGIN
+happy[4] = "Spin around three times and go to the happiest person, place or thing you see.";
+happy[5] = "Call the happies person you know.";
+happy[6] = "Say: Happy! Happy! Happy!";
+happy[7] = "Call or visit your happiest friend and tell them of your happiest memory together";
+happy[8] = "Call or visit your happiest family member and tell them of your happiest memory together";
+happy[9] = "Listen for the happiest sound in your environment.";
+happy[10] = "Go call the happiest person you know and go with them to the happiest place in town.";
+happy[11] = "Give a happy gift to a random person.";
+happy[12] = "Look in the mirror and say: I am getting happier every second, happier every minute, happier every hour, happeir every day, happier every year.  I am the happiest person on earth!";
+happy[13] = "Make a list of things you are happy about.";
+happy[14] = "Say yes to everything and see what happens.";
+happy[15] = "Seek out the happiest stranger you can find and say hello.";
+
 
 var which_happy_quest = Math.round(Math.random()*(happy.length - 1));
 document.getElementById('back').innerHTML = "<p>" + happy[which_happy_quest] + "</P>";
 
 };
 
-function Attractive() {
-  hideSVG();
-attractive[0] = "kill quest";
-attractive[1] = "gather quest";
-attractive[2] = "escort quest";
-attractive[3] = "delivery quest";
-// LET'S BEGIN
 
-var which_attractive_quest = Math.round(Math.random()*(attractive.length - 1));
-document.getElementById('back').innerHTML = "<p>" + attractive[which_attractive_quest] + "</P>";
-
-};
 
 function Confident() {
   hideSVG();
@@ -545,6 +592,22 @@ grounded[1] = "gather quest";
 grounded[2] = "escort quest";
 grounded[3] = "delivery quest";
 // LET'S BEGIN
+grounded[4] = "Go to a yoga class.";
+grounded[5] = "Hug a tree.";
+grounded[6] = "Play in the mud.";
+grounded[7] = "Sit on the floor for an hour.";
+grounded[8] = "Lay on the floor and breath deeply for two minutes.";
+grounded[9] = "Make sure all your bills are up to date and your accounts are balanced.";
+grounded[10] = "Make sure you have your retirement plan, life insurance and last will in testiment in order.";
+grounded[11] = "Spend an afternoon with the most grounded person you know.";
+grounded[12] = "Reach out to three people in your family and see how they are doing.";
+grounded[13] = "Take ten deep breaths.";
+grounded[14] = "Visualize yourself in realtion to the planet.";
+grounded[15] = "Visualize yourself in realtion to the universe.";
+
+
+
+
 
 var which_grounded_quest = Math.round(Math.random()*(grounded.length - 1));
 document.getElementById('back').innerHTML = "<p>" + grounded[which_grounded_quest] + "</P>";
@@ -558,6 +621,17 @@ beautiful[1] = "gather quest";
 beautiful[2] = "escort quest";
 beautiful[3] = "delivery quest";
 // LET'S BEGIN
+beautiful[4] = "Look in the mirror and say: I am beautiful.";
+beautiful[5] = "Look in the mirror and say: I am the most beautiful person in the universe.";
+beautiful[6] = "Talk to the three most beautiful people you know";
+beautiful[7] = "Go to the most beautiful place in your hneighborhood";
+beautiful[8] = "Go to an art museum";
+beautiful[9] = "Go to a garden";
+beautiful[10] = "Go on a nature hike";
+beautiful[11] = "Tell some one that they are beautiful";
+beautiful[11] = "smile at 3 beautiful people";
+
+
 
 var which_beautiful_quest = Math.round(Math.random()*(beautiful.length - 1));
 document.getElementById('back').innerHTML = "<p>" + beautiful[which_beautiful_quest] + "</P>";
@@ -571,6 +645,10 @@ awesome[1] = "gather quest";
 awesome[2] = "escort quest";
 awesome[3] = "delivery quest";
 // LET'S BEGIN
+awesome[4] = "Go to youtube and listen to Valley Girl by Moon Unit Zappa.";
+awesome[5] = "Go skateboarding, roller skating or roller blading.";
+awesome[6] = "Look in the mirror and say: I AM AWESOME.";
+awesome[7] = "Compliment three internet friends: Totally awesome!";
 
 var which_awesome_quest = Math.round(Math.random()*(awesome.length - 1));
 document.getElementById('back').innerHTML = "<p>" + awesome[which_awesome_quest] + "</P>";
@@ -584,6 +662,13 @@ fantastic[1] = "gather quest";
 fantastic[2] = "escort quest";
 fantastic[3] = "delivery quest";
 // LET'S BEGIN
+fantastic[4] = "Compliment three internet friends: Thats fantastic!"
+fantastic[5] = "Look in the mirror and say: I AM SO FANTASTICO!.";
+fantastic[6] = "Look in the mirror and say: I LOOK FANTASTIC!.";
+fantastic[7] = "Put on your most fantastic outfit.";
+fantastic[8] = "Eat a fantastic meal.";
+fantastic[9] = "Call up the most fantastic person you know.";
+fantastic[9] = "Make some one a fantastic meal.";
 
 var which_fantastic_quest = Math.round(Math.random()*(fantastic.length - 1));
 document.getElementById('back').innerHTML = "<p>" + fantastic[which_fantastic_quest] + "</P>";
@@ -600,13 +685,15 @@ peaceful[3] = "delivery quest";
 peaceful[4] = "Sit and listen to the most distant sound you can hear for three minutes.";
 peaceful[5] = "Take a walk in the woods.";
 peaceful[6] = "Take a silent meditation class.";
-peaceful[7] = "Focus on your breathing for three minutes."
-peaceful[8] = "Visit your most peaceful friend."
-peaceful[9] = "Remember your three most peaceful memories."
-peaceful[10] = "Hug some one."
-peaceful[11] = "Say peace instead of goodbye to everyone you meet for the rest of the day."
-peaceful[11] = "Visualize world peace."
-peaceful[12] = "Apologize for anything you feel guilty about."
+peaceful[7] = "Focus on your breathing for three minutes.";
+peaceful[8] = "Visit your most peaceful friend.";
+peaceful[9] = "Remember your three most peaceful memories.";
+peaceful[10] = "Hug some one.";
+peaceful[11] = "Say peace instead of goodbye to everyone you meet for the rest of the day.";
+peaceful[12] = "Visualize world peace.";
+peaceful[13] = "Apologize for anything you feel guilty about.";
+peaceful[14] = "Tell yourself: I am at total peace.";
+
 
 var which_peaceful_quest = Math.round(Math.random()*(peaceful.length - 1));
 document.getElementById('back').innerHTML = "<p>" + peaceful[which_peaceful_quest] + "</P>";
@@ -623,6 +710,15 @@ lucky[3] = "delivery quest";
 lucky[4] = "Give $20 to a random homeless person or a kid.";
 lucky[5] = "Volunteer at a homeless shelter.";
 lucky[6] = "Take a friend out to Chinese food, and read fortune cookies together";
+lucky[7] = "Shout: I WIN!";
+lucky[8] = "Get a Tarot card reading.";
+lucky[9] = "Read your horoscope.";
+lucky[10] = "Compliment three internet friends.  Tell them that they are lucky and why.";
+lucky[11] = "Consult the I Ching";
+lucky[12] = "Buy scratch off lottery tickets until you win something and then stop.";
+lucky[13] = "Organize a game night or poker game with your friends.";
+
+
 
 var which_lucky_quest = Math.round(Math.random()*(lucky.length - 1));
 document.getElementById('back').innerHTML = "<p>" + lucky[which_lucky_quest] + "</P>";
@@ -636,6 +732,13 @@ superduper[0] = "kill quest";
 superduper[1] = "gather quest";
 superduper[2] = "escort quest";
 superduper[3] = "delivery quest";
+superduper[4] = "Shout: Super Duper!  Super Duper!";
+superduper[5] = "Tell some one you feel super duper.";
+superduper[6] = "Tell some one that they look super duper.";
+superduper[7] = "Jump for joy.";
+superduper[8] = "Give some one a big hug or a powerful hand shake.";
+superduper[9] = "Compliment every aespect of your life: I love my hair, I love my job, I love my desk, I love my _____";
+superduper[10] = "Dance a jig.";
 
 var which_superduper_quest = Math.round(Math.random()*(superduper.length - 1));
 document.getElementById('back').innerHTML = "<p>" + superduper[which_superduper_quest] + "</P>";
