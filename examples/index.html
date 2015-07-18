@@ -118,7 +118,13 @@ background: linear-gradient(to bottom, #d2ff52 0%,#91e842 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
 copy
 
-
+    #mySquare {
+/*        width: 500px;
+        height: 500px;
+        background-color: lightgreen;*/
+        background-size: cover;
+        /* make it so that our background image is scaled up to at least cover our div */
+    }
     }
 
 
@@ -129,7 +135,7 @@ copy
 <!--   #################################### BODY #####################################-->
 
 
-<body id='mySquare'>
+<body id='images'>
 
 <!-- <section id="options">
     <p><button id="flip">Flip Card</button></p>
@@ -150,30 +156,28 @@ copy
 
 
 <!--   #################################### BODY #####################################-->
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-// This is where you can put your JavaScript
-    // Grab our square
-    var square = document.getElementById('mySquare');
-    var setBackgroundImage = function(element, url) {
-        // set the background image to a url
-        element.style.backgroundImage = 'url(' + url + ')';
-    };
-    var randomImageURL = function(flickrData) {
-        // Get a random image's url from the data flickr gives us
-        var randomInteger = Math.floor(Math.random() * flickrData.items.length);
-        return flickrData.items[randomInteger].media.m; // You can figure out this formatting by looking at the dictionaries in https://api.flickr.com/services/feeds/photos_public.gne?format=json
-    };
-    // This is a specially named function which is called by our script request (below) to flickr. If you go to https://api.flickr.com/services/feeds/photos_public.gne?format=json in your browser, you'll notice that it returns a bunch of JavaScript, all passed to a function called jsonFlickrFeed.
-    var jsonFlickrFeed = function(data) {
-        // set the background image to a random image from flickr
-        setBackgroundImage(square, randomImageURL(data));
-    };
+(function() {
+  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+  $.getJSON( flickerAPI, {
+    tags: "attractive",
+    tagmode: "any",
+    format: "json"
+  })
+    .done(function( data ) {
+      $.each( data.items, function( i, item ) {
+        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        if ( i === 3 ) {
+          return false;
+        }
+      });
+    });
+})();
 </script>
 
-    <script src='https://api.flickr.com/services/feeds/photos_public.gne?format=json'>
-    // This is where the magic happens; This is a technique called JSONP, which you can read more about at http://en.wikipedia.org/wiki/JSONP
-    </script>
+
+
 
 
   <script src="js/utils.js"></script>
