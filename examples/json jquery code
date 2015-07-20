@@ -1,5 +1,9 @@
 <script>
 (function() {
+
+var pickacard = Math.floor(Math.random() * (19 + 1));
+var square = document.getElementById('mySquare');
+
   var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
   $.getJSON( flickerAPI, {
     tags: "attractive",
@@ -8,11 +12,23 @@
   })
     .done(function( data ) {
       $.each( data.items, function( i, item ) {
-        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        if ( i === 21 ) {
+
+
+
+if (i == pickacard){
+        // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        var square = document.getElementById('mySquare');
+        square.style.backgroundImage = 'url(' + item.media.m + ')';
+
+      };
+
+
+        if ( i === 20 ) {
           return false;
         }
       });
+
+
     });
 })();
 </script>

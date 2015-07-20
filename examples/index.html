@@ -36,6 +36,15 @@ camera api -->
               perspective: 800px;
     }
 
+.invisible #alt-splash{
+  fill-opacity: 0.0;
+visibility: hidden;
+}
+
+.visible #alt-splash{
+  fill-opacity: 1.0;
+visibility: visible;
+}
 
 
 
@@ -63,7 +72,20 @@ camera api -->
               transform: rotateY( 180deg );
     }
 
+    #blues{
+
+      background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ff3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,255,1)), color-stop(100%, rgba(61,4,204,1))); /* safari4+,chrome */
+background:-webkit-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* safari5.1+,chrome10+ */
+background: -o-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* opera 11.10+ */
+background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ie10+ */
+background:radial-gradient(ellipse at center, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0000FF', endColorstr='#3D04CC',GradientType=1 ); /* ie6-9 */
+
+    }
+
     #card div {
+      backface-visibility: hidden;
       display: block;
       height: 100%;
       width: 100%;
@@ -82,18 +104,13 @@ camera api -->
     }
 
     #card .front {
+      backface-visibility: hidden;
     	border: 1px solid #CCC;
       background: white;
     }
 
     #card .back {
-      background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ff3.6+ */
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,255,1)), color-stop(100%, rgba(61,4,204,1))); /* safari4+,chrome */
-background:-webkit-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* safari5.1+,chrome10+ */
-background: -o-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* opera 11.10+ */
-background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* ie10+ */
-background:radial-gradient(ellipse at center, rgba(0,0,255,1) 0%, rgba(61,4,204,1) 100%); /* w3c */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0000FF', endColorstr='#3D04CC',GradientType=1 ); /* ie6-9 */
+backface-visibility: hidden;
       -webkit-transform: rotateY( 180deg );
          -moz-transform: rotateY( 180deg );
            -o-transform: rotateY( 180deg );
@@ -125,14 +142,15 @@ background: -ms-linear-gradient(top, #d2ff52 0%,#91e842 100%); /* IE10+ */
 background: linear-gradient(to bottom, #d2ff52 0%,#91e842 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
 copy
+}
 
     #mySquare {
 /*        width: 500px;
         height: 500px;
         background-color: lightgreen;*/
+        background-repeat: no-repeat;
         background-size: cover;
         /* make it so that our background image is scaled up to at least cover our div */
-    }
     }
 
     img{height:200px;}
@@ -155,7 +173,7 @@ copy
 
   <section class="container"  >
     <div id="card">
-      <div class="front"><div id="alt-splash"></div></div>
+      <div class="front" id="front"><div id="alt-splash"></div></div>
       <div class="back" id="back"></div>
     </div>
 
@@ -167,40 +185,7 @@ copy
 
 <!--   #################################### BODY #####################################   -->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-(function() {
 
-var pickacard = Math.floor(Math.random() * (19 + 1));
-var square = document.getElementById('mySquare');
-
-  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-  $.getJSON( flickerAPI, {
-    tags: "attractive",
-    tagmode: "any",
-    format: "json"
-  })
-    .done(function( data ) {
-      $.each( data.items, function( i, item ) {
-
-
-
-if (i == pickacard){
-        // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        var square = document.getElementById('mySquare');
-        square.style.backgroundImage = 'url(' + item.media.m + ')';
-
-      };
-
-
-        if ( i === 20 ) {
-          return false;
-        }
-      });
-
-
-    });
-})();
-</script>
 
 
 
@@ -247,11 +232,16 @@ var peaceful = [];
 var lucky = [];
 var superDuper = [];
 var free = [];
+var tag;
 
 
 (function() {
 
-var fill = d3.scale.category20();
+
+// var fill = d3.scale.category20();
+var fill = d3.scale.ordinal()
+.range(["#3b5998", "#009d97", "#2ca02c", "#0066cc", 
+  "#7221aa", "#cc6600", "#FF540D", "#E82C0C"]); 
 
 var layout = d3.layout.cloud()
     .size([480, 480])
@@ -286,14 +276,76 @@ function draw(words) {
       .text(function(d) { return d.text; })
 .on("click", 
   function(d) {
+    tag = d.text;
+    
   eval(d.text + '();');
 })
       ;
 }
 
 
+
+
+
+
+ function photobomb() {
+
+  _phototag = tag;
+  console.log("the phototag is: " + _phototag);
+
+var pickacard = Math.floor(Math.random() * (19 + 1));
+var square = document.getElementById('mySquare');
+
+   var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+// var flickerAPI = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=023bb736c4b5182f1df4e00730210248&tags=test&format=json&nojsoncallback=1&auth_token=72157653755883563-24da76833df4be84&api_sig=c503abb587427a28feacb7f80bf85657";
+
+// console.log("" + flickerAPI);
+
+  $.getJSON( flickerAPI, {
+    tags: _phototag,
+    tagmode: "any",
+    size: "m",
+    format: "json"
+  })
+    .done(function( data ) {
+      $.each( data.items, function( i, item ) {
+
+
+
+if (i == pickacard){
+        // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        var square = document.getElementById('mySquare');
+
+var photoURL = item.media.m;
+
+var bigPhoto = photoURL.replace("_m", "");
+
+        square.style.backgroundImage = 'url(' + bigPhoto + ')';
+
+      };
+
+
+        if ( i === 20 ) {
+          return false;
+        }
+      });
+
+
+    });
+};
+
+
+
+
+
+
+
+
+
+
 function Loved() {
   hideSVG();
+  photobomb();
 
 loved[0] = "kill quest";
 loved[1] = "gather quest";
@@ -316,6 +368,7 @@ document.getElementById('back').innerHTML = "<p>" + loved[which_loved_quest] + "
 
 function Winning() {
   hideSVG();
+  photobomb();
 
 winning[0] = "kill quest";
 winning[1] = "gather quest";
@@ -335,6 +388,8 @@ document.getElementById('back').innerHTML = "<p>" + winning[which_winning_quest]
 
 function Free() {
   hideSVG();
+  photobomb();
+
 free[0] = "kill quest";
 free[1] = "gather quest";
 free[2] = "escort quest"; 
@@ -350,6 +405,9 @@ document.getElementById('back').innerHTML = "<p>" + free[which_free_quest] + "</
 
 function Attractive() {
   hideSVG();
+  photobomb();
+
+
 attractive[0] = "kill quest";
 attractive[1] = "gather quest";
 attractive[2] = "escort quest";
@@ -372,6 +430,9 @@ document.getElementById('back').innerHTML = "<p>" + attractive[which_attractive_
 
 function Healthy() {
   hideSVG();
+  photobomb();
+
+
 healthy[0] = "kill quest";
 healthy[1] = "gather quest";
 healthy[2] = "escort quest";
@@ -386,6 +447,9 @@ document.getElementById('back').innerHTML = "<p>" + healthy[which_healthy_quest]
 
 function Relaxed() {
   hideSVG();
+  photobomb();
+
+
 relaxed[0] = "kill quest";
 relaxed[1] = "gather quest";
 relaxed[2] = "escort quest";
@@ -399,6 +463,9 @@ document.getElementById('back').innerHTML = "<p>" + free[which_relaxed_quest] + 
 
 function Fierce() {
   hideSVG();
+  photobomb();
+
+
 fierce[0] = "kill quest";
 fierce[1] = "gather quest";
 fierce[2] = "escort quest";
@@ -412,6 +479,9 @@ document.getElementById('back').innerHTML = "<p>" + fierce[which_fierce_quest] +
 
 function Powerful() {
   hideSVG();
+  photobomb();
+
+
 powerful[0] = "kill quest";
 powerful[1] = "gather quest";
 powerful[2] = "escort quest";
@@ -425,6 +495,9 @@ document.getElementById('back').innerHTML = "<p>" + powerful[which_powerful_ques
 
 function Valuable() {
   hideSVG();
+  photobomb();
+
+
 valuable[0] = "kill quest";
 valuable[1] = "gather quest";
 valuable[2] = "escort quest";
@@ -438,6 +511,9 @@ document.getElementById('back').innerHTML = "<p>" + valuable[which_valuable_ques
 
 function Strong() {
   hideSVG();
+  photobomb();
+
+
 strong[0] = "kill quest";
 strong[1] = "gather quest";
 strong[2] = "escort quest";
@@ -451,6 +527,9 @@ document.getElementById('back').innerHTML = "<p>" + strong[which_strong_quest] +
 
 function Wonderful() {
   hideSVG();
+  photobomb();
+
+
 wonderful[0] = "kill quest";
 wonderful[1] = "gather quest";
 wonderful[2] = "escort quest";
@@ -464,6 +543,9 @@ document.getElementById('back').innerHTML = "<p>" + wonderful[which_wonderful_qu
 
 function Sexy() {
   hideSVG();
+  photobomb();
+
+
 sexy[0] = "kill quest";
 sexy[1] = "gather quest";
 sexy[2] = "escort quest";
@@ -480,6 +562,9 @@ document.getElementById('back').innerHTML = "<p>" + sexy[which_sexy_quest] + "</
 
 function Growing() {
   hideSVG();
+  photobomb();
+
+
 growing[0] = "kill quest";
 growing[1] = "gather quest";
 growing[2] = "escort quest";
@@ -494,6 +579,9 @@ document.getElementById('back').innerHTML = "<p>" + growing[which_growing_quest]
 
 function Successful() {
   hideSVG();
+  photobomb();
+
+
 successful[0] = "kill quest";
 successful[1] = "gather quest";
 successful[2] = "escort quest";
@@ -507,6 +595,9 @@ document.getElementById('back').innerHTML = "<p>" + successful[which_successful_
 
 function Fierce() {
   hideSVG();
+  photobomb();
+
+
 fierce[0] = "kill quest";
 fierce[1] = "gather quest";
 fierce[2] = "escort quest";
@@ -520,6 +611,9 @@ document.getElementById('back').innerHTML = "<p>" + fierce[which_fierce_quest] +
 
 function Deliscious() {
   hideSVG();
+  photobomb();
+
+
 deliscious[0] = "kill quest";
 deliscious[1] = "gather quest";
 deliscious[2] = "escort quest";
@@ -533,6 +627,9 @@ document.getElementById('back').innerHTML = "<p>" + deliscious[which_deliscious_
 
 function Peaceful() {
   hideSVG();
+  photobomb();
+
+
 peaceful[0] = "kill quest";
 peaceful[1] = "gather quest";
 peaceful[2] = "escort quest";
@@ -546,6 +643,9 @@ document.getElementById('back').innerHTML = "<p>" + peaceful[which_peaceful_ques
 
 function Happy() {
   hideSVG();
+  photobomb();
+
+
 happy[0] = "kill quest";
 happy[1] = "gather quest";
 happy[2] = "escort quest";
@@ -574,6 +674,9 @@ document.getElementById('back').innerHTML = "<p>" + happy[which_happy_quest] + "
 
 function Confident() {
   hideSVG();
+  photobomb();
+
+
 confident[0] = "kill quest";
 confident[1] = "gather quest";
 confident[2] = "escort quest";
@@ -587,6 +690,9 @@ document.getElementById('back').innerHTML = "<p>" + confident[which_confident_qu
 
 function Grounded() {
   hideSVG();
+  photobomb();
+
+
 grounded[0] = "kill quest";
 grounded[1] = "gather quest";
 grounded[2] = "escort quest";
@@ -616,6 +722,9 @@ document.getElementById('back').innerHTML = "<p>" + grounded[which_grounded_ques
 
 function Beautiful() {
   hideSVG();
+  photobomb();
+
+
 beautiful[0] = "kill quest";
 beautiful[1] = "gather quest";
 beautiful[2] = "escort quest";
@@ -640,6 +749,9 @@ document.getElementById('back').innerHTML = "<p>" + beautiful[which_beautiful_qu
 
 function Awesome() {
   hideSVG();
+  photobomb();
+
+
 awesome[0] = "kill quest";
 awesome[1] = "gather quest";
 awesome[2] = "escort quest";
@@ -657,6 +769,9 @@ document.getElementById('back').innerHTML = "<p>" + awesome[which_awesome_quest]
 
 function Fantastic() {
   hideSVG();
+  photobomb();
+
+
 fantastic[0] = "kill quest";
 fantastic[1] = "gather quest";
 fantastic[2] = "escort quest";
@@ -677,6 +792,9 @@ document.getElementById('back').innerHTML = "<p>" + fantastic[which_fantastic_qu
 
 function Peaceful() {
   hideSVG();
+  photobomb();
+
+
 peaceful[0] = "kill quest";
 peaceful[1] = "gather quest";
 peaceful[2] = "escort quest";
@@ -702,6 +820,9 @@ document.getElementById('back').innerHTML = "<p>" + peaceful[which_peaceful_ques
 
 function Lucky() {
   hideSVG();
+  photobomb();
+
+
 lucky[0] = "kill quest";
 lucky[1] = "gather quest";
 lucky[2] = "escort quest";
@@ -728,6 +849,9 @@ document.getElementById('back').innerHTML = "<p>" + lucky[which_lucky_quest] + "
 
 function SuperDuper() {
   hideSVG();
+  photobomb();
+
+
 superduper[0] = "kill quest";
 superduper[1] = "gather quest";
 superduper[2] = "escort quest";
@@ -751,16 +875,100 @@ document.getElementById('back').innerHTML = "<p>" + superduper[which_superduper_
 
 
 
+ var Backlava = document.getElementById('back');
+// var Screencheck = document.getElementById('square');
+
+ Backlava.addEventListener('click', function (event) {
+     console.log('BACK!!!');
+     document.getElementById('mySquare').style.backgroundImage = "none";
+
+     // Setting the gradient with the proper prefix
+document.getElementById('mySquare').style.backgroundImage = "-webkit-linear-gradient(top, #d2ff52, #91e842)";
+
+// top, #d2ff52 0%, #91e842
+
+     frontLoader.classList.toggle('invisible');
+ });
+
+
+
+var frontLoader = document.querySelector('#front');
+
+
 function hideSVG() {
-  // console.log("Kapow!");
-  // document.querySelector("#alt-splash").style.visibility = "hidden";
+
   document.querySelector("#card").toggleClassName("flipped");
+
+  frontLoader.classList.toggle('invisible');
+
 };
 
 // flipped
 
 
+// (function() {
+
+//   var streaming = false,
+//       video        = document.querySelector('#video'),
+//       canvas       = document.querySelector('#canvas'),
+//       startbutton  = document.querySelector('#startbutton'),
+//       width = 600,
+//       height = 0;
+
+//   navigator.getMedia = ( navigator.getUserMedia ||
+//                          navigator.webkitGetUserMedia ||
+//                          navigator.mozGetUserMedia ||
+//                          navigator.msGetUserMedia);
+
+//   navigator.getMedia(
+//     {
+//       video: true,
+//       audio: false
+//     },
+//     function(stream) {
+//       if (navigator.mozGetUserMedia) {
+//         video.mozSrcObject = stream;
+//       } else {
+//         var vendorURL = window.URL || window.webkitURL;
+//         video.src = vendorURL.createObjectURL(stream);
+//       }
+//       video.play();
+//     },
+//     function(err) {
+//       console.log("An error occured! " + err);
+//     }
+//   );
+
+//   video.addEventListener('canplay', function(ev){
+//     if (!streaming) {
+//       height = video.videoHeight / (video.videoWidth/width);
+//       video.setAttribute('width', width);
+//       video.setAttribute('height', height);
+//       canvas.setAttribute('width', width);
+//       canvas.setAttribute('height', height);
+//       streaming = true;
+//     }
+//   }, false);
+
+//   function takepicture() {
+//     canvas.width = width;
+//     canvas.height = height;
+//     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+//     var data = canvas.toDataURL('image/png');
+//   }
+
+//   startbutton.addEventListener('click', function(ev){
+//       takepicture();
+//     ev.preventDefault();
+//   }, false);
+
+// })();
+
+
+
 })();
+
+
 
 
 </script>
