@@ -382,7 +382,7 @@ winning[5] = "Play the game that you have mastered.";
 winning[6] = "Volunteer as a tutor.";
 winning[7] = "Buy a round of drinks!";
 winning[8] = "Light a lucky voodoo candle";
-
+winning[9] = "Volunteer at an animal shelter";
 
 
 var which_winning_quest = Math.round(Math.random()*(winning.length - 1));
@@ -401,10 +401,12 @@ free[1] = "Walk or drive randomly around your neighborhood until you get lost.";
 free[2] = "Go to a free puppet show."; 
 free[3] = "Take a penny, leave a penny.";
 free[4] = "Buy a bird at a pet store and set it free.";
+free[5] = "Coach a sports team for kids.";
+free[6] = "Travel around the world.";
 
 
 var which_free_quest = Math.round(Math.random()*(free.length - 1));
-document.getElementById('back').innerHTML = "<p>" + " YOU ARE A FREE AS A BIRD! " + "</P>"+
+document.getElementById('back').innerHTML = "<p>" + "FREEDOM! DO WHAT YOU WANT! " + "</P>"+
 "<p>" + free[which_free_quest] +" </p>";
 
 };
@@ -438,14 +440,17 @@ function Healthy() {
 
 healthy[0] = "Run a marathon";
 healthy[1] = "Train for an iron man competition";
-healthy[2] = "go to the gym";
+healthy[2] = "Go to the gym";
 healthy[3] = "plan an adventure trip";
 healthy[4] = "Eat at a health food restaurant.";
-
+healthy[5] = "Cook a healthy meal";
+healthy[6] = "Conserve energy";
+healthy[7] = "Take care of your body";
+healthy[8] = "help some one with yard work";
 
 
 var which_healthy_quest = Math.round(Math.random()*(healthy.length - 1));
-document.getElementById('back').innerHTML = "<p>" + " YES, YOU ARE HEALTHY! " + "</P>"+
+document.getElementById('back').innerHTML = "<p>" + "YOU ARE HEALTHY! YOU ARE ALIVE!" + "</P>"+
 "<p>" + healthy[which_healthy_quest] +" </p>";
 
 
@@ -463,7 +468,7 @@ relaxed[2] = "Take a bubble bath";
 relaxed[3] = "Relax evey bone in your body";
 relaxed[4] = "Hold hands with some one.";
 relaxed[5] = "Wear flip flops the rest of the day.";
-
+relaxed[5] = "Volunteer at a library for the blind.";
 
 var which_relaxed_quest = Math.round(Math.random()*(relaxed.length - 1));
 document.getElementById('back').innerHTML = "<p>" + " you...  are... so...  RELAXED :-) " + "</P>"+
@@ -481,6 +486,11 @@ powerful[0] = "Call the least powerful person you know.";
 powerful[1] = "Call the most powerful person you know.";
 powerful[2] = "Volunteer as a mentor.";
 powerful[3] = "Do some one a favor.";
+powerful[4] = "help change a tire.";
+powerful[5] = "give away your parking lot.";
+powerful[6] = "help some one find a job.";
+powerful[7] = "volunteer at a homeless shelter.";
+powerful[8] = "write a letter to some one who has helped you in life.";
 
 
 var which_powerful_quest = Math.round(Math.random()*(powerful.length - 1));
