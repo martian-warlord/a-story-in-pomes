@@ -3,11 +3,11 @@
 	<head>
 		<title>Face tracker</title>
 		<meta charset="utf-8">
-		<link href="../styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<!-- <link href="../styles/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 		<style>
 			
 			body {
-
+	
 
 
 			}
@@ -100,9 +100,21 @@
 			}
 
 		</style>
+		<script type="text/javascript">
 
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-32642923-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
 	</head>
-	<body>
+	<body onload="startVideo()">
 		<script src="../js/utils.js"></script>
 		<script src="../js/clmtrackr.js"></script>
 		<script src="../models/model_pca_20_svm_emotionDetection.js"></script>
@@ -113,24 +125,24 @@
 		<div id="content">
 			
 			<div id="container">
-				<video id="videoel" width="400" height="300" preload="auto" loop>
+				<video id="videoel" width="400" height="300" preload="auto" style = "display:none;" loop>
 				</video>
-				<canvas id="overlay" width="400" height="300"></canvas>
+				<canvas id="overlay" width="400" height="300" style = "display:none;"></canvas>
 			</div>
 			<canvas id="sketch" width="400" height="300"></canvas>
-			<div id="emotion_container">
+			<div id="emotion_container" style = "display:none;">
 				<div id="emotion_icons">
 					<img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
 					<img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
 					<img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
 					<img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
 				</div>
-				<div id='emotion_chart'></div>
+				<div id='emotion_chart' style = "display:none;"></div>
 			</div>
-			<div id="controls">
+			<!-- <div id="controls">
 				<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
-			</div>
-	
+			</div> -->
+		
 			<script>
 			var colorR = 255;
 			var colorG = 255;
@@ -160,7 +172,18 @@
 					startbutton.disabled = null;
 				}
 				
-
+				/*var insertAltVideo = function(video) {
+					if (supports_video()) {
+						if (supports_ogg_theora_video()) {
+							video.src = "../media/cap12_edit.ogv";
+						} else if (supports_h264_baseline_video()) {
+							video.src = "../media/cap12_edit.mp4";
+						} else {
+							return false;
+						}
+						//video.play();
+						return true;
+					} else return false;
 				}*/
 				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 				window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
@@ -225,9 +248,9 @@
 						updateData(er);
 						for (var i = 0;i < er.length;i++) {
 							if (er[i].value > 0.4) {
-								document.getElementById('icon'+(i+1)).style.visibility = 'visible';
+								// document.getElementById('icon'+(i+1)).style.visibility = 'visible';
 							} else {
-								document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
+								// document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
 							}
 						}
 					}
@@ -392,17 +415,7 @@ document.body.style.boxShadow = boxcolval;
 					texts.exit().remove();
 				}
 
-				/******** stats ********/
 
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				document.getElementById('container').appendChild( stats.domElement );
-
-				// update stats on every iteration
-				document.addEventListener('clmtrackrIteration', function(event) {
-					stats.update();
-				}, false);
 				
 			</script>
 		</div>

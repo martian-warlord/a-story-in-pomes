@@ -102,19 +102,7 @@
 			}
 
 		</style>
-		<script type="text/javascript">
 
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-32642923-1']);
-			_gaq.push(['_trackPageview']);
-
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-
-		</script>
 	</head>
 	<body>
 		<script src="../js/utils.js"></script>
@@ -127,10 +115,10 @@
 		<div id="content">
 			<h2>Emotion detection example</h2>
 			<p>This a test of emotion detection based on parameter output from <em>clmtrackr</em>.</p>
-			<div id="container">
+			<div id="container" style = "visibility: hidden;">
 				<video id="videoel" width="400" height="300" preload="auto" loop>
 				</video>
-				<canvas id="overlay" width="400" height="300"></canvas>
+				<canvas id="overlay" width="400" height="300" style = "visibility: hidden;"></canvas>
 			</div>
 			<canvas id="sketch" width="400" height="300"></canvas>
 			<div id="emotion_container">
@@ -140,7 +128,7 @@
 					<img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
 					<img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
 				</div>
-				<div id='emotion_chart'></div>
+				<div id='emotion_chart' style = "visibility: hidden;"></div>
 			</div>
 			<div id="controls">
 				<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
@@ -238,13 +226,13 @@
 
 					if (er) {
 						updateData(er);
-						// for (var i = 0;i < er.length;i++) {
-						// 	if (er[i].value > 0.4) {
-						// 		document.getElementById('icon'+(i+1)).style.visibility = 'visible';
-						// 	} else {
-						// 		document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
-						// 	}
-						// }
+					// 	for (var i = 0;i < er.length;i++) {
+					// 		if (er[i].value > 0.4) {
+					// 			document.getElementById('icon'+(i+1)).style.visibility = 'visible';
+					// 		} else {
+					// 			document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
+					// 		}
+					// 	}
 					}
 				}
 				
@@ -336,17 +324,6 @@ if ((datum.emotion == "happy") && (datum.value.toFixed(1) > .8)){console.log(dat
 					texts.exit().remove();
 				}
 
-				/******** stats ********/
-
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				document.getElementById('container').appendChild( stats.domElement );
-
-				// update stats on every iteration
-				document.addEventListener('clmtrackrIteration', function(event) {
-					stats.update();
-				}, false);
 				
 			</script>
 		</div>
