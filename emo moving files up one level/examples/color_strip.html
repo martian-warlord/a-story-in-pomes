@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Face tracker</title>
+		<meta charset="utf-8">
+		<!-- <link href="../styles/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+		<style>
+			
+			body {
+	
+
+
+			}
+			
+			#overlay {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+
+				width : 600px;
+				height : 450px;
+			}
+
+			#videoel {
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+
+				width : 600px;
+				height : 450px;
+			}
+			
+			#container {
+				position : relative;
+				width : 370px;
+				/*margin : 0px auto;*/
+			}
+			
+			#content {
+				margin-top : 50px;
+				margin-left : auto;
+				margin-right : auto;
+				max-width: 600px;
+			}
+			
+			#sketch, #filter {
+				display: none;
+			}
+			
+			h2 {
+				font-weight : 400;
+			}
+			
+			.btn {
+				font-family: 'Lato';
+				font-size: 16px;
+			}
+
+			#controls {
+				text-align : center;
+			}
+
+			#emotion_container {
+				width: 600px;
+			}
+
+			#emotion_icons {
+				height: 50px;
+				padding-left: 40px;
+			}
+
+			.emotion_icon {
+				width : 40px;
+				height : 40px;
+				margin-top: 5px;
+				/*margin-left : 13px;*/
+				margin-left : 35px;
+			}
+
+			#emotion_chart, #emotion_icons {
+				margin: 0 auto;
+				width : 400px;
+			}
+
+			#icon1, #icon2, #icon3, #icon4, #icon5, #icon6 {
+				visibility : hidden;
+			}
+
+			/* d3 */
+			.bar {
+				fill : steelblue;
+				fill-opacity : .9;
+			}
+
+		</style>
+		<script type="text/javascript">
+
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-32642923-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+	</head>
+	<body onload="startVideo()">
+		<script src="../js/utils.js"></script>
+		<script src="../js/clmtrackr.js"></script>
+		<script src="../models/model_pca_20_svm_emotionDetection.js"></script>
+		<script src="../js/Stats.js"></script>
+		<script src="./js/d3.min.js"></script>
+		<script src="./js/emotion_classifier.js"></script>
+		<script src="./js/emotionmodel.js"></script>
+		<div id="content">
+			
+			<div id="container">
+				<video id="videoel" width="400" height="300" preload="auto" style = "display:none;" loop>
+				</video>
+				<canvas id="overlay" width="400" height="300" style = "display:none;"></canvas>
+			</div>
+			<canvas id="sketch" width="400" height="300"></canvas>
+			<div id="emotion_container" style = "display:none;">
+				<div id="emotion_icons">
+					<img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
+					<img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
+					<img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
+					<img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
+				</div>
+				<div id='emotion_chart' style = "display:none;"></div>
+			</div>
+			<!-- <div id="controls">
+				<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
+			</div> -->
+		
+			<script>
+			var colorR = 255;
+			var colorG = 255;
+			var colorB = 255;
+
+// gradient
+			var colorR2 = 255;
+			var colorG2 = 255;
+			var colorB2 = 255;
+
+// box shadow
+			var colorR3 = 255;
+			var colorG3 = 255;
+			var colorB3 = 255;
+
+			var colval ='';
+			var boxcoval = '';
+				var vid = document.getElementById('videoel');
+				var overlay = document.getElementById('overlay');
+				var overlayCC = overlay.getContext('2d');
+				
+				/********** check and set up video/webcam **********/
+
+				function enablestart() {
+					var startbutton = document.getElementById('startbutton');
+					startbutton.value = "start";
+					startbutton.disabled = null;
+				}
+				
+				/*var insertAltVideo = function(video) {
+					if (supports_video()) {
+						if (supports_ogg_theora_video()) {
+							video.src = "../media/cap12_edit.ogv";
+						} else if (supports_h264_baseline_video()) {
+							video.src = "../media/cap12_edit.mp4";
+						} else {
+							return false;
+						}
+						//video.play();
+						return true;
+					} else return false;
+				}*/
+				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+				window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
+
+				// check for camerasupport
+				if (navigator.getUserMedia) {
+					// set up stream
+					
+					var videoSelector = {video : true};
+					if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
+						var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+						if (chromeVersion < 20) {
+							videoSelector = "video";
+						}
+					};
+				
+					navigator.getUserMedia(videoSelector, function( stream ) {
+						if (vid.mozCaptureStream) {
+							vid.mozSrcObject = stream;
+						} else {
+							vid.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+						}
+						vid.play();
+					}, function() {
+						//insertAltVideo(vid);
+						alert("There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
+					});
+				} else {
+					//insertAltVideo(vid);
+					alert("This demo depends on getUserMedia, which your browser does not seem to support. :(");
+				}
+
+				vid.addEventListener('canplay', enablestart, false);
+				
+				/*********** setup of emotion detection *************/
+
+				var ctrack = new clm.tracker({useWebGL : true});
+				ctrack.init(pModel);
+
+				function startVideo() {
+					// start video
+					vid.play();
+
+
+					// start tracking
+					ctrack.start(vid);
+					// start loop to draw face
+					drawLoop();
+				}
+				
+				function drawLoop() {
+					requestAnimFrame(drawLoop);
+					overlayCC.clearRect(0, 0, 400, 300);
+					//psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
+					if (ctrack.getCurrentPosition()) {
+						ctrack.draw(overlay);
+					}
+					var cp = ctrack.getCurrentParameters();
+					
+					var er = ec.meanPredict(cp);
+					if (er) {
+						updateData(er);
+						for (var i = 0;i < er.length;i++) {
+							if (er[i].value > 0.4) {
+								// document.getElementById('icon'+(i+1)).style.visibility = 'visible';
+							} else {
+								// document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
+							}
+						}
+					}
+				}
+				
+				var ec = new emotionClassifier();
+				ec.init(emotionModel);
+				var emotionData = ec.getBlank();
+				console.log(emotionData[3]);	
+				
+				/************ d3 code for barchart *****************/
+
+				var margin = {top : 20, right : 20, bottom : 10, left : 40},
+					width = 400 - margin.left - margin.right,
+					height = 100 - margin.top - margin.bottom;
+
+				var barWidth = 30;
+
+				var formatPercent = d3.format(".0%");
+				
+				var x = d3.scale.linear()
+					.domain([0, ec.getEmotions().length]).range([margin.left, width+margin.left]);
+
+				var y = d3.scale.linear()
+					.domain([0,1]).range([0, height]);
+
+				var svg = d3.select("#emotion_chart").append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+				
+				svg.selectAll("rect").
+				  data(emotionData).
+				  enter().
+				  append("svg:rect").
+				  attr("x", function(datum, index) { return x(index); }).
+				  attr("y", function(datum) { return height - y(datum.value); }).
+				  attr("height", function(datum) { return y(datum.value); }).
+				  attr("width", barWidth).
+				  attr("fill", "#2d578b");
+
+				svg.selectAll("text.labels").
+				  data(emotionData).
+				  enter().
+				  append("svg:text").
+				  attr("x", function(datum, index) { return x(index) + barWidth; }).
+				  attr("y", function(datum) { return height - y(datum.value); }).
+				  attr("dx", -barWidth/2).
+				  attr("dy", "1.2em").
+				  attr("text-anchor", "middle").
+				  text(function(datum) { return datum.value;}).
+				  attr("fill", "white").
+				  attr("class", "labels");
+				
+				svg.selectAll("text.yAxis").
+				  data(emotionData).
+				  enter().append("svg:text").
+				  attr("x", function(datum, index) { return x(index) + barWidth; }).
+				  attr("y", height).
+				  attr("dx", -barWidth/2).
+				  attr("text-anchor", "middle").
+				  attr("style", "font-size: 12").
+				  text(function(datum) { return datum.emotion;}).
+				  attr("transform", "translate(0, 18)").
+				  attr("class", "yAxis");
+
+				function updateData(data) {
+					// update
+					var rects = svg.selectAll("rect")
+						.data(data)
+						.attr("y", function(datum) { return height - y(datum.value); })
+						.attr("height", function(datum) { return y(datum.value); });
+					var texts = svg.selectAll("text.labels")
+						.data(data)
+						.attr("y", function(datum) { return height - y(datum.value); })
+						.text(function(datum) { 
+
+if (datum.emotion == "angry"){
+	colorB = colorB - (datum.value.toFixed(1) * 20);
+	colorR = colorR + (datum.value.toFixed(1) * 20);
+	colorG = colorG - (datum.value.toFixed(1) * 20);
+
+	colorB2 = colorB2 - (datum.value.toFixed(1) * 20);
+	colorR2 = colorR2 + (datum.value.toFixed(1) * 10);
+	colorG2 = colorG2 - (datum.value.toFixed(1) * 0);
+
+
+
+	;};
+if (datum.emotion == "sad"){
+	
+	colorB = colorB + (datum.value.toFixed(1) * 10);
+	colorR = colorR - (datum.value.toFixed(1) * 20);
+	colorG = colorG - (datum.value.toFixed(1) * 20);
+
+	colorB2 = colorB2 + (datum.value.toFixed(1) * 10);
+	colorR2 = colorR2 - (datum.value.toFixed(1) * 15);
+	colorG2 = colorG2 - (datum.value.toFixed(1) * 15);
+
+
+	};
+if (datum.emotion == "surprised"){
+	
+	colorR = colorR + (datum.value.toFixed(1) * 10);
+	colorB = colorB + (datum.value.toFixed(1) * 10);
+
+	colorR2 = colorR2 + (datum.value.toFixed(1) * 0);
+	colorG2 = colorG2 + (datum.value.toFixed(1) * 10);
+	colorB2 = colorB2 + (datum.value.toFixed(1) * 10);
+
+
+
+	};
+if (datum.emotion == "happy"){
+	
+	colorR = colorR + (datum.value.toFixed(1) * 0);
+	colorG = colorG + (datum.value.toFixed(1) * 20);
+	colorB = colorB + (datum.value.toFixed(1) * 0);
+
+	colorR2 = colorR2 + (datum.value.toFixed(1) * 10);
+	colorG2 = colorG2 + (datum.value.toFixed(1) * 10);
+	colorB2 = colorB2 + (datum.value.toFixed(1) * 0);
+
+
+	};
+ if(colorB > 255) {colorB = 255};
+ if(colorB < 1) {colorB = 1};
+  if(colorG > 255) {colorG = 255};
+ if(colorG < 1) {colorG = 1};
+  if(colorR > 255) {colorR = 255};
+ if(colorR < 1) {colorR = 1};
+
+  if(colorB2 > 255) {colorB2 = 255};
+ if(colorB2 < 1) {colorB2 = 1};
+  if(colorG2 > 255) {colorG2 = 255};
+ if(colorG2 < 1) {colorG2 = 1};
+  if(colorR2 > 255) {colorR2 = 255};
+ if(colorR2 < 1) {colorR2 = 1};
+
+// console.log("R: "+colorR+"G: "+colorG+"B: "+colorB);
+var colval = "rgb(" + colorR + "," + colorG + ", "+ colorB + ")";
+// var colval = "-webkit-radial-gradient(top, rgba(" + colorR + " ," + colorG + "," + colorB + ",.3) , rgba(" + colorR2 + " ," + colorG2 + "," + colorB2 + ",.3) )";
+
+ var boxcolval = "inset 0px 0px 1500px 1000px rgba(" + colorR + "," + colorG + ", "+ colorB + ", .4)";
+
+document.body.style.backgroundColor = colval;
+
+document.body.style.boxShadow = boxcolval;
+// document.body.style.backgroundColor = 
+// -webkit-linear-gradient(bottom, rgb(254,133,107) 24%, rgb(35,171,17) 62%);
+
+								// console.log("datum.value: "+ datum.value.toFixed(1));
+
+
+							return datum.value.toFixed(1);});
+
+					// enter 
+					rects.enter().append("svg:rect");
+					texts.enter().append("svg:text");
+
+					// exit
+					rects.exit().remove();
+					texts.exit().remove();
+				}
+
+
+				
+			</script>
+		</div>
+	</body>
+</html>
