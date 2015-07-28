@@ -112,6 +112,21 @@
 		<div id="content">
 			
 			<div id="container">
+
+<div id="minute">NOW
+</br>happy:<span id="happynow"></span></br>surprised:<span id="surprisedmin"></span></br>sad:<span id="sadmin"></span></br>angry:<span id="angrymin"></span>
+</div></br>
+<div id="minute">MIN
+</br>happy:<span id="happymin"></span></br>surprised:<span id="surprisedmin"></span></br>sad:<span id="sadmin"></span></br>angry:<span id="angrymin"></span>
+</div></br>
+<div id="hour">HOUR
+</br>happy:<span id="happyhour"></span></br>surprised:<span id="surprisedhour"></span></br>sad:<span id="sadhour"></span></br>angry:<span id="angryhour"></span>
+</div></br>
+<div id="day">DAY
+</br>happy:<span id="happyday"></span></br>surprised:<span id="surprisedday"></span></br>sad:<span id="sadday"></span></br>angry:<span id="angryday"></span>
+</div>
+
+
 				<video id="videoel" width="400" height="300" preload="auto" style = "display:none;" loop>
 				</video>
 				<canvas id="overlay" width="400" height="300" style = "display:none;"></canvas>
@@ -134,6 +149,13 @@
 			var colorR = 255;
 			var colorG = 255;
 			var colorB = 255;
+var minCounter;
+var hourCounter;
+var dayCounter;
+
+var minRunningAverage;
+var hourRunningAverage;
+var dayRunningAverage;
 
 // gradient
 			var colorR2 = 255;
