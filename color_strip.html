@@ -113,8 +113,9 @@
 			
 			<div id="container">
 
+<div id="demotime"></div></br>
 <div id="minute">NOW
-</br>happy:<span id="happynow"></span></br>surprised:<span id="surprisedmin"></span></br>sad:<span id="sadmin"></span></br>angry:<span id="angrymin"></span>
+</br>happy:<span id="happynow"></span></br>surprised:<span id="surprisednow"></span></br>sad:<span id="sadnow"></span></br>angry:<span id="angrynow"></span>
 </div></br>
 <div id="minute">MIN
 </br>happy:<span id="happymin"></span></br>surprised:<span id="surprisedmin"></span></br>sad:<span id="sadmin"></span></br>angry:<span id="angrymin"></span>
@@ -122,9 +123,7 @@
 <div id="hour">HOUR
 </br>happy:<span id="happyhour"></span></br>surprised:<span id="surprisedhour"></span></br>sad:<span id="sadhour"></span></br>angry:<span id="angryhour"></span>
 </div></br>
-<div id="day">DAY
-</br>happy:<span id="happyday"></span></br>surprised:<span id="surprisedday"></span></br>sad:<span id="sadday"></span></br>angry:<span id="angryday"></span>
-</div>
+
 
 
 				<video id="videoel" width="400" height="300" preload="auto" style = "display:none;" loop>
@@ -149,13 +148,37 @@
 			var colorR = 255;
 			var colorG = 255;
 			var colorB = 255;
+
+var firstAnger = 0;
+var runningNowAngryAverage = 0;
+var nowCounter = 0;
 var minCounter;
 var hourCounter;
-var dayCounter;
 
+var angerNumerator = 0;
+var angerDenomenator = 0;
+var newAnger = 0;
+
+var nowRunningAverage;
 var minRunningAverage;
 var hourRunningAverage;
-var dayRunningAverage;
+
+var newnow = 0;
+var newmin;
+var newhour;
+
+var angervalue = 0;
+var sadvalue = 0;
+var happyvalue = 0;
+var surprisedvalue = 0;
+
+var myVar=setInterval(function () {myTimer()}, 1000); 
+
+function myTimer() { var d = new Date(); document.getElementById("demotime").innerHTML = d.toLocaleTimeString(); 
+
+
+}
+
 
 // gradient
 			var colorR2 = 255;
@@ -348,7 +371,42 @@ var dayRunningAverage;
 						.attr("y", function(datum) { return height - y(datum.value); })
 						.text(function(datum) { 
 
+if(nowCounter < 9999999999)  { nowCounter++; }  ////////////////////////////////// NOW COUNTER
+ console.log("nowCounter: " + nowCounter);
+
+
+
+
 if (datum.emotion == "angry"){
+
+angervalue = 10 * datum.value.toFixed(1);
+console.log("FIRST anger value: " + angervalue);
+
+if (firstAnger == 0){
+
+runningNowAngryAverage = angervalue;
+	firstAnger = 1;
+	
+}
+
+else {
+angervalue = 10 * datum.value.toFixed(1);
+angerNumerator = (parseInt(runningNowAngryAverage) * nowCounter) + angervalue;
+angerDenomenator = parseInt(nowCounter + 1) ;
+newAnger =  parseInt(parseInt(angerNumerator)/parseInt(angerDenomenator));
+console.log("NOT FIRST newanger: " + newAnger);
+
+}
+
+
+
+	// runningNowAngryAverage = ((runningNowAngryAverage * nowCounter) + angervalue) /  (nowCounter + 1);
+
+
+
+document.getElementById("angrynow").innerHTML = runningNowAngryAverage; 
+// console.log(runningNowAngryAverage);
+
 	colorB = colorB - (datum.value.toFixed(1) * 20);
 	colorR = colorR + (datum.value.toFixed(1) * 20);
 	colorG = colorG - (datum.value.toFixed(1) * 20);
@@ -361,6 +419,12 @@ if (datum.emotion == "angry"){
 
 	;};
 if (datum.emotion == "sad"){
+
+sadvalue = datum.value.toFixed(1);
+// console.log("sad value: " + sadvalue);
+
+
+	// ((runningNowSadAverage * nowCounter) + datum.value.toFixed(1)) /  (nowCounter + 1);
 	
 	colorB = colorB + (datum.value.toFixed(1) * 10);
 	colorR = colorR - (datum.value.toFixed(1) * 20);
@@ -373,7 +437,12 @@ if (datum.emotion == "sad"){
 
 	};
 if (datum.emotion == "surprised"){
+	// ((runningNowSurprisedAverage * nowCounter) + datum.value.toFixed(1)) /  (nowCounter + 1);
 	
+surprisedvalue = datum.value.toFixed(1);
+// console.log("surprised value: " + surprisedvalue);
+
+
 	colorR = colorR + (datum.value.toFixed(1) * 10);
 	colorB = colorB + (datum.value.toFixed(1) * 10);
 
@@ -385,6 +454,12 @@ if (datum.emotion == "surprised"){
 
 	};
 if (datum.emotion == "happy"){
+
+happyvalue = datum.value.toFixed(1);
+// console.log("happy value: " + happyvalue);
+
+
+	// ((runningNowHappyAverage * nowCounter) + datum.value.toFixed(1)) /  (nowCounter + 1);
 	
 	colorR = colorR + (datum.value.toFixed(1) * 0);
 	colorG = colorG + (datum.value.toFixed(1) * 20);
