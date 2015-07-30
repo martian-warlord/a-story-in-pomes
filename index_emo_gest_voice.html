@@ -486,6 +486,12 @@ console.log(message);
                   attr("transform", "translate(0, 18)").
                   attr("class", "yAxis");
 
+// Checks if card is flipped before messing with background color                   BONANZA
+
+
+
+
+
                 function updateData(data) {
                     // update
                     var rects = svg.selectAll("rect")
@@ -565,9 +571,26 @@ var colval = "rgb(" + colorR + "," + colorG + ", "+ colorB + ")";
 
  var boxcolval = "inset 0px 0px 1500px 1000px rgba(" + colorR + "," + colorG + ", "+ colorB + ", .4)";
 
-document.body.style.backgroundColor = colval;
 
+// function hasClass(element, cls) {
+//     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+// }
+var el = document.getElementById('card');
+
+// console.log("BONANZA");
+
+// console.log(el.classList.contains('flipped'));
+// console.log(hasClass(el, 'flipped');
+
+if (el.classList.contains('flipped') == false ) {
+document.body.style.backgroundColor = colval;
 document.body.style.boxShadow = boxcolval;
+
+}
+
+
+
+
 // document.body.style.backgroundColor = 
 // -webkit-linear-gradient(bottom, rgb(254,133,107) 24%, rgb(35,171,17) 62%);
 
