@@ -125,10 +125,22 @@ window.gest = (function (window) {
 			video.width = 300;
 			video.height = 225;
 			video.setAttribute('style', 'visibility: hidden;');
-			document.body.appendChild(video);
+// video.setAttribute('style', 'display: none;');
 
-			canvas.setAttribute('style', 'width: 300px; display: none;');
-			document.body.appendChild(canvas);
+ 
+
+			// document.body.appendChild(video);   BONANZA
+
+ document.querySelector(".container").appendChild(video);   
+
+
+
+			canvas.setAttribute('style', 'width: 300px; display: none;');  
+			// canvas.setAttribute('style', 'width: 300px; display: none;'); 
+
+			// document.body.appendChild(canvas);    BONANZA
+ document.querySelector(".container").appendChild(canvas); 
+
 			context = canvas.getContext('2d');
 		} else {
 			throwError(0);
@@ -348,7 +360,7 @@ window.gest = (function (window) {
 				// 	settings.debug.context.putImageData(delt, 0, 0);
 				// }
 
-				 console.log("test");
+				 // console.log("test");
 				var mycanvas = document.getElementById('test');
 				mycanvas.width = width;
 				mycanvas.height = height;
@@ -578,6 +590,10 @@ window.gest = (function (window) {
 								//define canvas sizes
 								canvas.width = width;
 								canvas.height = height;
+								// width: 75px; height: 56px;
+								// canvas.width = 75px;
+								// canvas.height = 56px;
+
 
 								//capture frames on set intervals
 								setInterval(function() { grabVideoFrame(width, height); }, 1000/settings.framerate);
