@@ -280,11 +280,22 @@ gest.options.debug(true);
 
 
             gest.options.subscribeWithCallback(function(gesture) {
-                // console.log(gesture);
+                // console.log(gesture); // BONANZA666
                 var message = '';
                 if (gesture.direction) {
                     message = gesture.direction;
 console.log(message);
+var el = document.getElementById('card');
+if(el.classList.contains('flipped')){
+      console.log('BACK!!!');
+        document.getElementById('mySquare').style.backgroundImage = "none";
+        var frontLoader = document.querySelector('#front');
+frontLoader.classList.toggle('invisible');
+document.querySelector("#card").toggleClassName("flipped");
+
+
+
+};
 
 
                 } else {
@@ -486,7 +497,7 @@ console.log(message);
                   attr("transform", "translate(0, 18)").
                   attr("class", "yAxis");
 
-// Checks if card is flipped before messing with background color                   BONANZA
+
 
 
 
@@ -2174,14 +2185,14 @@ var tag;
     Backlava.addEventListener('click', function(event) {
         console.log('BACK!!!');
         document.getElementById('mySquare').style.backgroundImage = "none";
-
+frontLoader.classList.toggle('invisible');
 
         // Setting the gradient with the proper prefix
-        document.getElementById('mySquare').style.backgroundColor = "-webkit-linear-gradient(top, #d2ff52, #91e842)";
+        // document.getElementById('mySquare').style.backgroundColor = "-webkit-linear-gradient(top, #d2ff52, #91e842)";
 
 
 
-        frontLoader.classList.toggle('invisible');
+        
     });
 
 
