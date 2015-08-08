@@ -1,0 +1,2318 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <!-- disable zooming -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=0" />
+    <title>HAPPINESS LOVE JOY GIGGLES AND GRINS</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato%7CCherry+Cream+Soda%7CCookie' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css" media="screen" />
+        <link rel="stylesheet" href="../experiment-styles.css" />
+
+    <link rel="stylesheet" href="css/touch.css" />
+    <style media="screen">
+    .container {
+        width: 500px;
+        height: 500px;
+        position: relative;
+        margin: 0 auto 40px;
+        border-radius: 0.5em;
+        /*border: 1px solid #CCC;*/
+        -webkit-perspective: 800px;
+        -moz-perspective: 800px;
+        -o-perspective: 800px;
+        perspective: 800px;
+    }
+
+    
+    .invisible #alt-splash {
+        fill-opacity: 0.0;
+        /*visibility: hidden;*/
+        display:none;
+    }
+    
+    .visible #alt-splash {
+        fill-opacity: 1.0;
+        /*visibility: visible;*/
+        display:none;
+    }
+    
+    #card {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5em;
+        position: absolute;
+        -webkit-transition: -webkit-transform 1s;
+        -moz-transition: -moz-transform 1s;
+        -o-transition: -o-transform 1s;
+        transition: transform 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+    
+    #card.flipped {
+        -webkit-transform: rotateY( 180deg);
+        -moz-transform: rotateY( 180deg);
+        -o-transform: rotateY( 180deg);
+        transform: rotateY( 180deg);
+    }
+    
+
+    
+    #card div {
+        backface-visibility: hidden;
+        display: block;
+        height: 100%;
+        width: 100%;
+        line-height: 50px;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+        position: absolute;
+        border-radius: 0.5em;
+        box-shadow: 0 0 0.5em #91e842;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    
+    #card .front {
+       /* backface-visibility: hidden;*/
+        border: 1px solid #CCC;
+        background: white;
+    }
+    
+    #card .back {
+        backface-visibility: hidden;
+        -webkit-transform: rotateY( 180deg);
+        -moz-transform: rotateY( 180deg);
+        -o-transform: rotateY( 180deg);
+        transform: rotateY( 180deg);
+    }
+    
+    p {
+        text-shadow: 0 0 0.3em #D3D3D3;
+    }
+    
+    #pics {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+        text-align: center;
+    }
+    
+/*    #pics img {
+        width: 33%;
+        height: 33%;
+    }*/
+    
+
+    
+    #mySquare {
+        /*        width: 500px;
+        height: 500px;
+        background-color: lightgreen;*/
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* make it so that our background image is scaled up to at least cover our div */
+    }
+    
+/*    img {
+        height: 200px;
+    }*/
+
+            
+            #overlay {
+                 /*display:hidden;*/
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                -o-transform : scaleX(-1);
+                -webkit-transform : scaleX(-1);
+                transform : scaleX(-1);
+                -ms-filter : fliph; /*IE*/
+                filter : fliph; /*IE*/
+
+                width : 600px;
+                height : 450px;
+            }
+
+            #videoel {
+               /* display:hidden;*/
+                -o-transform : scaleX(-1);
+                -webkit-transform : scaleX(-1);
+                transform : scaleX(-1);
+                -ms-filter : fliph; /*IE*/
+                filter : fliph; /*IE*/
+
+                /*width : 600px;*/
+                width : 100%;
+                height : 450px;
+            }
+            
+/*            #container2 {
+                position : relative;
+                width : 370px;
+                
+            }*/
+            
+            #content {
+           /*     margin-top : 50px;
+                margin-left : auto;
+                margin-right : auto;*/
+                /*max-width: 600px;*/
+            }
+            
+            #sketch, #filter {
+                display: none;
+            }
+            
+            h2 {
+                font-weight : 400;
+            }
+            
+            .btn {
+                font-family: 'Lato';
+                font-size: 16px;
+            }
+
+            #controls {
+                text-align : center;
+            }
+
+            #emotion_container {
+                /*width: 600px;*/
+            }
+
+            #emotion_icons {
+                height: 50px;
+                padding-left: 40px;
+            }
+
+            .emotion_icon {
+                width : 40px;
+                height : 40px;
+                margin-top: 5px;
+                /*margin-left : 13px;*/
+                margin-left : 35px;
+            }
+
+            #emotion_chart, #emotion_icons {
+                margin: 0 auto;
+                /*width : 400px;*/
+            }
+
+            #icon1, #icon2, #icon3, #icon4, #icon5, #icon6 {
+                diplay : none;
+            }
+
+            /* d3 */
+            .bar {
+                fill : steelblue;
+                fill-opacity : .9;
+            }
+
+    canvas{
+        width : 75px !important;
+        height : 56px !important;
+        
+    }
+
+
+    </style>
+</head>
+<!--   #################################### BODY #####################################-->
+
+
+
+    <body id='mySquare' class="experiment" onload="startVideo()">
+    <script src="./gest.js"></script>
+        <script src="./js/utils.js"></script>
+        <script src="./js/clmtrackr.js"></script>
+        <script src="./models/model_pca_20_svm_emotionDetection.js"></script>
+        <script src="./js/Stats.js"></script>
+        <script src="./js/d3.min.js"></script>
+        <script src="./js/emotion_classifier.js"></script>
+        <script src="./js/emotionmodel.js"></script>
+        <script src="js/touch.js"></script>
+
+    <!-- <canvas id='test' width='100%' height='100%'></canvas> -->
+<canvas id='test' style="width: 75px; height: 56px;"></canvas>
+    <!-- <section id="options">
+    <p><button id="flip">Flip Card</button></p>
+</section> -->
+    <section class="container">
+        <div id="card">
+            <div class="front" id="front">
+                <div id="alt-splash"></div>
+            </div>
+            <div class="back" id="back"></div>
+        </div>
+        <!-- <div id='mySquare'></div> -->
+    </section>
+
+        <div id="content">
+            
+            <div id="container2"  style = "display:none;">
+                <video id="videoel" width="400" height="300" preload="auto" style = "display:none;" loop>
+                </video>
+                <canvas id="overlay" width="400" height="300" style = "display:none;"></canvas>
+            </div>
+            <canvas id="sketch" width="400" height="300"></canvas>
+            <div id="emotion_container" style = "display:none;">
+                <div id="emotion_icons">
+                    <img class="emotion_icon" id="icon1" src="./media/icon_angry.png">
+                    <img class="emotion_icon" id="icon2" src="./media/icon_sad.png">
+                    <img class="emotion_icon" id="icon3" src="./media/icon_surprised.png">
+                    <img class="emotion_icon" id="icon4" src="./media/icon_happy.png">
+                </div>
+                <div id='emotion_chart' style = "display:none;"></div>
+            </div>
+            <div id="controls" style = "display:none;">
+                <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
+            </div>
+
+            <div class="wrapper">
+
+<article class="viewport">
+    <section class="cube">
+        <div>111</div>
+        <div>
+            222
+        </div>
+        <div>
+            <p>333</p>
+        </div>
+        <div>
+            <p>444</p>
+        </div>
+        <div>
+            <p>555</p>
+        </div>
+        <div>
+           <p> 666 </p>
+        </div>
+    </section>
+</article>
+
+    </div>
+
+        <script type="text/javascript">
+
+
+gest.options.debug(true);
+
+
+            gest.options.subscribeWithCallback(function(gesture) {
+                // console.log(gesture); // BONANZA666
+                var message = '';
+                if (gesture.direction) {
+                    message = gesture.direction;
+console.log(message);
+var el = document.getElementById('card');
+if(el.classList.contains('flipped')){
+      console.log('BACK!!!');
+        document.getElementById('mySquare').style.backgroundImage = "none";
+        var frontLoader = document.querySelector('#front');
+frontLoader.classList.toggle('invisible');
+document.querySelector("#card").toggleClassName("flipped");
+
+
+
+};
+
+
+                } else {
+                    message = gesture.error.message;
+
+console.log(message);
+
+                } 
+});
+                
+
+            gest.start();
+
+
+        </script>
+
+<script>
+            var colorR = 255;
+            var colorG = 255;
+            var colorB = 255;
+
+// gradient
+            var colorR2 = 255;
+            var colorG2 = 255;
+            var colorB2 = 255;
+
+// box shadow
+            var colorR3 = 255;
+            var colorG3 = 255;
+            var colorB3 = 255;
+
+            var colval ='';
+            var boxcoval = '';
+                var vid = document.getElementById('videoel');
+                var overlay = document.getElementById('overlay');
+                var overlayCC = overlay.getContext('2d');
+
+
+        var requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+                return window.setTimeout(callback, 1000/60);
+            };
+        })();
+                
+                /********** check and set up video/webcam **********/
+
+                function enablestart() {
+                    var startbutton = document.getElementById('startbutton');
+                    startbutton.value = "start";
+                    startbutton.disabled = null;
+                }
+                
+                var insertAltVideo = function(video) {
+                    if (supports_video()) {
+                        if (supports_ogg_theora_video()) {
+                            video.src = "../media/cap12_edit.ogv";
+                        } else if (supports_h264_baseline_video()) {
+                            video.src = "../media/cap12_edit.mp4";
+                        } else {
+                            return false;
+                        }
+                        //video.play();
+                        return true;
+                    } else return false;
+                }
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+                window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
+
+                // check for camerasupport
+                if (navigator.getUserMedia) {
+                    // set up stream
+                    
+                    var videoSelector = {video : true};
+                    if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
+                        var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+                        if (chromeVersion < 20) {
+                            videoSelector = "video";
+                        }
+                    };
+                
+                    navigator.getUserMedia(videoSelector, function( stream ) {
+                        if (vid.mozCaptureStream) {
+                            vid.mozSrcObject = stream;
+                        } else {
+                            vid.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+                        }
+                        vid.play();
+                    }, function() {
+                        //insertAltVideo(vid);
+                        alert("There was some problem trying to fetch video from your webcam. If you have a webcam, please make sure to accept when the browser asks for access to your webcam.");
+                    });
+                } else {
+                    //insertAltVideo(vid);
+                    alert("This demo depends on getUserMedia, which your browser does not seem to support. :(");
+                }
+
+                vid.addEventListener('canplay', enablestart, false);
+                
+                /*********** setup of emotion detection *************/
+
+                var ctrack = new clm.tracker({useWebGL : true});
+                ctrack.init(pModel);
+
+                function startVideo() {
+                    // start video
+                    vid.play();
+
+
+                    // start tracking
+                    ctrack.start(vid);
+                    // start loop to draw face
+                    drawLoop();
+                }
+                
+                function drawLoop() {
+                    requestAnimFrame(drawLoop);
+                    overlayCC.clearRect(0, 0, 400, 300);
+                    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
+                    if (ctrack.getCurrentPosition()) {
+                        ctrack.draw(overlay);
+                    }
+                    var cp = ctrack.getCurrentParameters();
+                    
+                    var er = ec.meanPredict(cp);
+                    if (er) {
+                        updateData(er);
+                        for (var i = 0;i < er.length;i++) {
+                            if (er[i].value > 0.4) {
+                                // document.getElementById('icon'+(i+1)).style.visibility = 'visible';
+                            } else {
+                                // document.getElementById('icon'+(i+1)).style.visibility = 'hidden';
+                            }
+                        }
+                    }
+                }
+                
+                var ec = new emotionClassifier();
+                ec.init(emotionModel);
+                var emotionData = ec.getBlank();
+                console.log(emotionData[3]);    
+                
+                /************ d3 code for barchart *****************/
+
+                var margin = {top : 20, right : 20, bottom : 10, left : 40},
+                    width = 400 - margin.left - margin.right,
+                    height = 100 - margin.top - margin.bottom;
+
+                var barWidth = 30;
+
+                var formatPercent = d3.format(".0%");
+                
+                var x = d3.scale.linear()
+                    .domain([0, ec.getEmotions().length]).range([margin.left, width+margin.left]);
+
+                var y = d3.scale.linear()
+                    .domain([0,1]).range([0, height]);
+
+                var svg = d3.select("#emotion_chart").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                
+                svg.selectAll("rect").
+                  data(emotionData).
+                  enter().
+                  append("svg:rect").
+                  attr("x", function(datum, index) { return x(index); }).
+                  attr("y", function(datum) { return height - y(datum.value); }).
+                  attr("height", function(datum) { return y(datum.value); }).
+                  attr("width", barWidth).
+                  attr("fill", "#2d578b");
+
+                svg.selectAll("text.labels").
+                  data(emotionData).
+                  enter().
+                  append("svg:text").
+                  attr("x", function(datum, index) { return x(index) + barWidth; }).
+                  attr("y", function(datum) { return height - y(datum.value); }).
+                  attr("dx", -barWidth/2).
+                  attr("dy", "1.2em").
+                  attr("text-anchor", "middle").
+                  text(function(datum) { return datum.value;}).
+                  attr("fill", "white").
+                  attr("class", "labels");
+                
+                svg.selectAll("text.yAxis").
+                  data(emotionData).
+                  enter().append("svg:text").
+                  attr("x", function(datum, index) { return x(index) + barWidth; }).
+                  attr("y", height).
+                  attr("dx", -barWidth/2).
+                  attr("text-anchor", "middle").
+                  attr("style", "font-size: 12").
+                  text(function(datum) { return datum.emotion;}).
+                  attr("transform", "translate(0, 18)").
+                  attr("class", "yAxis");
+
+
+
+
+
+
+
+                function updateData(data) {
+                    // update
+                    var rects = svg.selectAll("rect")
+                        .data(data)
+                        .attr("y", function(datum) { return height - y(datum.value); })
+                        .attr("height", function(datum) { return y(datum.value); });
+                    var texts = svg.selectAll("text.labels")
+                        .data(data)
+                        .attr("y", function(datum) { return height - y(datum.value); })
+                        .text(function(datum) { 
+
+if (datum.emotion == "angry"){
+    colorB = colorB - (datum.value.toFixed(1) * 20);
+    colorR = colorR + (datum.value.toFixed(1) * 20);
+    colorG = colorG - (datum.value.toFixed(1) * 20);
+
+    colorB2 = colorB2 - (datum.value.toFixed(1) * 20);
+    colorR2 = colorR2 + (datum.value.toFixed(1) * 10);
+    colorG2 = colorG2 - (datum.value.toFixed(1) * 0);
+
+
+
+    ;};
+if (datum.emotion == "sad"){
+    
+    colorB = colorB + (datum.value.toFixed(1) * 10);
+    colorR = colorR - (datum.value.toFixed(1) * 20);
+    colorG = colorG - (datum.value.toFixed(1) * 20);
+
+    colorB2 = colorB2 + (datum.value.toFixed(1) * 10);
+    colorR2 = colorR2 - (datum.value.toFixed(1) * 15);
+    colorG2 = colorG2 - (datum.value.toFixed(1) * 15);
+
+
+    };
+if (datum.emotion == "surprised"){
+    
+    colorR = colorR + (datum.value.toFixed(1) * 10);
+    colorB = colorB + (datum.value.toFixed(1) * 10);
+
+    colorR2 = colorR2 + (datum.value.toFixed(1) * 0);
+    colorG2 = colorG2 + (datum.value.toFixed(1) * 10);
+    colorB2 = colorB2 + (datum.value.toFixed(1) * 10);
+
+
+
+    };
+if (datum.emotion == "happy"){
+    
+    colorR = colorR + (datum.value.toFixed(1) * 0);
+    colorG = colorG + (datum.value.toFixed(1) * 20);
+    colorB = colorB + (datum.value.toFixed(1) * 0);
+
+    colorR2 = colorR2 + (datum.value.toFixed(1) * 10);
+    colorG2 = colorG2 + (datum.value.toFixed(1) * 10);
+    colorB2 = colorB2 + (datum.value.toFixed(1) * 0);
+
+
+    };
+ if(colorB > 255) {colorB = 255};
+ if(colorB < 1) {colorB = 1};
+  if(colorG > 255) {colorG = 255};
+ if(colorG < 1) {colorG = 1};
+  if(colorR > 255) {colorR = 255};
+ if(colorR < 1) {colorR = 1};
+
+  if(colorB2 > 255) {colorB2 = 255};
+ if(colorB2 < 1) {colorB2 = 1};
+  if(colorG2 > 255) {colorG2 = 255};
+ if(colorG2 < 1) {colorG2 = 1};
+  if(colorR2 > 255) {colorR2 = 255};
+ if(colorR2 < 1) {colorR2 = 1};
+
+// console.log("R: "+colorR+"G: "+colorG+"B: "+colorB);
+var colval = "rgb(" + colorR + "," + colorG + ", "+ colorB + ")";
+// var colval = "-webkit-radial-gradient(top, rgba(" + colorR + " ," + colorG + "," + colorB + ",.3) , rgba(" + colorR2 + " ," + colorG2 + "," + colorB2 + ",.3) )";
+
+ var boxcolval = "inset 0px 0px 1500px 1000px rgba(" + colorR + "," + colorG + ", "+ colorB + ", .4)";
+
+
+// function hasClass(element, cls) {
+//     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+// }
+var el = document.getElementById('card');
+
+// console.log("BONANZA");
+
+// console.log(el.classList.contains('flipped'));
+// console.log(hasClass(el, 'flipped');
+
+if (el.classList.contains('flipped') == false ) {
+document.body.style.backgroundColor = colval;
+document.body.style.boxShadow = boxcolval;
+
+}
+
+
+
+
+// document.body.style.backgroundColor = 
+// -webkit-linear-gradient(bottom, rgb(254,133,107) 24%, rgb(35,171,17) 62%);
+
+                                // console.log("datum.value: "+ datum.value.toFixed(1));
+
+
+                            return datum.value.toFixed(1);});
+
+                    // enter 
+                    rects.enter().append("svg:rect");
+                    texts.enter().append("svg:text");
+
+                    // exit
+                    rects.exit().remove();
+                    texts.exit().remove();
+                }
+
+
+                
+            </script>
+        </div>
+    
+    <!--   #################################### BODY #####################################   -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/flip-card.js"></script>
+    <script src="d3/d3.js"></script>
+    <script src="d3/d3.layout.cloud.js"></script>
+
+
+</body>
+<script>
+var loved = [];
+var winning = [];
+var free = [];
+var attractive = [];
+var healthy = [];
+var relaxed = [];
+var fierce = [];
+var powerful = [];
+var valuable = [];
+var strong = [];
+var wonderful = [];
+var sexy = [];
+var growing = [];
+var successful = [];
+var fierce = [];
+var deliscious = [];
+var peaceful = [];
+var happy = [];
+var attractive = [];
+var confident = [];
+var grounded = [];
+var beautiful = [];
+var awesome = [];
+var fantastic = [];
+var peaceful = [];
+var lucky = [];
+var superduper = [];
+var free = [];
+var tag;
+
+
+(function() {
+
+
+    // var fill = d3.scale.category20();
+    var fill = d3.scale.ordinal()
+        .range(["#3b5998", "#009d97", "#2ca02c", "#0066cc",
+            "#7221aa", "#cc6600", "#FF540D", "#E82C0C"
+        ]);
+
+    var layout = d3.layout.cloud()
+        .size([480, 480])
+        .words(["Loved", "Winning", "Attractive", "Healthy", "Relaxed", "Fierce", "Powerful", "Valuable", "Strong", "Wonderful", "Sexy", "Growing", "Successful", "Fierce", "Deliscious", "Peaceful", "Happy", "Confident", "Grounded", "Beautiful", "Awesome", "Fantastic", "Lucky", "SuperDuper", "Free"].map(function(d) {
+            return {
+                text: d,
+                size: 10 + Math.random() * 90,
+                test: "Sexy"
+            };
+        }))
+        .padding(5)
+        .rotate(function() {
+            return ~~(Math.random() * 2) * 90;
+        })
+        .font("Cherry Cream Soda")
+        .fontSize(function(d) {
+            return d.size;
+        })
+        .on("end", draw);
+
+    layout.start();
+
+    function draw(words) {
+        d3.select("#alt-splash").append("svg")
+            .attr("width", layout.size()[0])
+            .attr("height", layout.size()[1])
+            .append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) {
+                return d.size + "px";
+            })
+            .style("font-family", "Cherry Cream Soda")
+            .style("fill", function(d, i) {
+                return fill(i);
+            })
+            .attr("id", function(d, i) {
+                return d["text"]
+            }) //  ID ADDED HERE FOR MENU SELECTION  
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y + 10] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) {
+                return d.text;
+            })
+            .on("click",
+                function(d) {
+                    tag = d.text;
+
+                    eval(d.text + '();');
+                });
+    }
+
+
+
+
+
+
+
+    function photobomb() {
+
+        _phototag = tag;
+        console.log("the phototag is: " + _phototag);
+
+        var pickacard = Math.floor(Math.random() * (19 + 1));
+        var square = document.getElementById('mySquare');
+
+        var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+
+
+        $.getJSON(flickerAPI, {
+                tags: _phototag,
+                tagmode: "any",
+                size: "m",
+                format: "json"
+            })
+            .done(function(data) {
+                $.each(data.items, function(i, item) {
+
+
+
+                    if (i == pickacard) {
+                        // $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+                        var square = document.getElementById('mySquare');
+
+                        var photoURL = item.media.m;
+
+                        var bigPhoto = photoURL.replace("_m", "");
+
+                        square.style.backgroundImage = 'url(' + bigPhoto + ')';
+
+                    };
+
+
+                    if (i === 20) {
+                        return false;
+                    }
+                });
+
+
+            });
+    };
+
+
+
+
+    function Loved() {
+        hideSVG();
+        photobomb();
+
+        loved[0] = "Call a romantic interest.";
+        loved[1] = "Play with a pet.";
+        loved[2] = "Scratch a dog, pet a cat.";
+        loved[3] = "Take a romantic interest out to dinner.";
+        loved[4] = "Call three people from your family.";
+        loved[5] = "Call three good friends.";
+
+        var which_loved_quest = Math.round(Math.random() * (loved.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + " YOU ARE LOVED! " + "</P>" +
+            "<p>" + loved[which_loved_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE LOVED!", "UK English Female", {
+            pitch: 1.1
+        });
+
+        setTimeout(function() {
+            responsiveVoice.speak(loved[which_loved_quest], "UK English Male", {
+                pitch: 1
+            });
+        }, 3000);
+    };
+
+    var Loved = function Loved() {
+        hideSVG();
+        photobomb();
+
+        loved[0] = "Call a romantic interest.";
+        loved[1] = "Play with a pet.";
+        loved[2] = "Scratch a dog, pet a cat.";
+        loved[3] = "Take a romantic interest out to dinner.";
+        loved[4] = "Call three people from your family.";
+        loved[5] = "Call three good friends.";
+
+        var which_loved_quest = Math.round(Math.random() * (loved.length - 1));
+
+        document.getElementById('back').innerHTML = "<p>" + " YOU ARE LOVED! " + "</P>" +
+            "<p>" + loved[which_loved_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE LOVED!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(loved[which_loved_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Winning() {
+        hideSVG();
+        photobomb();
+
+        winning[0] = "Play the game that you have mastered.";
+        winning[1] = "Volunteer as a tutor.";
+        winning[2] = "Buy a round of drinks!";
+        winning[3] = "Light a lucky voodoo candle";
+        winning[4] = "Remember your three biggest victories in life.";
+        winning[5] = "Play the game that you have mastered.";
+        winning[6] = "Volunteer as a tutor.";
+        winning[7] = "Buy a round of drinks!";
+        winning[8] = "Light a lucky voodoo candle";
+        winning[9] = "Volunteer at an animal shelter";
+
+
+        var which_winning_quest = Math.round(Math.random() * (winning.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + " YOU ARE A WINNER! " + "</P>" +
+            "<p>" + winning[which_winning_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE A WINNER!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(winning[which_winning_quest], "US English Male", {
+                pitch: 1
+            });
+        }, 3000);
+
+    };
+
+    var Winning = function Winning() {
+        hideSVG();
+        photobomb();
+
+        winning[0] = "Play the game that you have mastered.";
+        winning[1] = "Volunteer as a tutor.";
+        winning[2] = "Buy a round of drinks!";
+        winning[3] = "Light a lucky voodoo candle";
+        winning[4] = "Remember your three biggest victories in life.";
+        winning[5] = "Play the game that you have mastered.";
+        winning[6] = "Volunteer as a tutor.";
+        winning[7] = "Buy a round of drinks!";
+        winning[8] = "Light a lucky voodoo candle";
+        winning[9] = "Volunteer at an animal shelter";
+
+
+        var which_winning_quest = Math.round(Math.random() * (winning.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + " YOU ARE A WINNER! " + "</P>" +
+            "<p>" + winning[which_winning_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE A WINNER!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(winning[which_winning_quest], "US English Male", {
+                pitch: 1
+            });
+        }, 3000);
+
+    };
+
+
+
+    function Free() {
+        hideSVG();
+        photobomb();
+
+        free[0] = "Take a walk in the woods.";
+        free[1] = "Walk or drive randomly around your neighborhood until you get lost.";
+        free[2] = "Go to a free puppet show.";
+        free[3] = "Take a penny, leave a penny.";
+        free[4] = "Buy a bird at a pet store and set it free.";
+        free[5] = "Coach a sports team for kids.";
+        free[6] = "Travel around the world.";
+
+
+        var which_free_quest = Math.round(Math.random() * (free.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "FREEDOM! DO WHAT YOU WANT! " + "</P>" +
+            "<p>" + free[which_free_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE COMPLETELY FREE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(free[which_free_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Free = function Free() {
+        hideSVG();
+        photobomb();
+
+        free[0] = "Take a walk in the woods.";
+        free[1] = "Walk or drive randomly around your neighborhood until you get lost.";
+        free[2] = "Go to a free puppet show.";
+        free[3] = "Take a penny, leave a penny.";
+        free[4] = "Buy a bird at a pet store and set it free.";
+        free[5] = "Coach a sports team for kids.";
+        free[6] = "Travel around the world.";
+
+
+        var which_free_quest = Math.round(Math.random() * (free.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "FREEDOM! DO WHAT YOU WANT! " + "</P>" +
+            "<p>" + free[which_free_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE COMPLETELY FREE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(free[which_free_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+
+
+    function Attractive() {
+        hideSVG();
+        photobomb();
+
+
+        attractive[0] = "Smile.";
+        attractive[1] = "Make eye contact with some one who is attractive and smile.";
+        attractive[2] = "Make eye contact with some one who is attractive and wave.";
+        attractive[3] = "Flirt with some one.";
+        attractive[4] = "Look in the mirror and say: I AM VERY ATTRACTIVE";
+        attractive[5] = "Get a haircut.";
+        attractive[6] = "Ask a loved one what is your best outfit.";
+        attractive[7] = "Ask a loved one what is your best feature.";
+
+
+
+        var which_attractive_quest = Math.round(Math.random() * (attractive.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER ATTRACTIVE!" + "</P>" +
+            "<p>" + attractive[which_attractive_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER ATTRACTIVE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(attractive[which_attractive_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Attractive = function Attractive() {
+        hideSVG();
+        photobomb();
+
+
+        attractive[0] = "Smile.";
+        attractive[1] = "Make eye contact with some one who is attractive and smile.";
+        attractive[2] = "Make eye contact with some one who is attractive and wave.";
+        attractive[3] = "Flirt with some one.";
+        attractive[4] = "Look in the mirror and say: I AM VERY ATTRACTIVE";
+        attractive[5] = "Get a haircut.";
+        attractive[6] = "Ask a loved one what is your best outfit.";
+        attractive[7] = "Ask a loved one what is your best feature.";
+
+
+
+        var which_attractive_quest = Math.round(Math.random() * (attractive.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER ATTRACTIVE!" + "</P>" +
+            "<p>" + attractive[which_attractive_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER ATTRACTIVE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(attractive[which_attractive_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+    function Healthy() {
+        hideSVG();
+        photobomb();
+
+
+        healthy[0] = "Run a marathon";
+        healthy[1] = "Train for an iron man competition";
+        healthy[2] = "Go to the gym";
+        healthy[3] = "plan an adventure trip";
+        healthy[4] = "Eat at a health food restaurant.";
+        healthy[5] = "Cook a healthy meal";
+        healthy[6] = "Conserve energy";
+        healthy[7] = "Take care of your body";
+        healthy[8] = "help some one with yard work";
+
+
+        var which_healthy_quest = Math.round(Math.random() * (healthy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE HEALTHY IN MIND BODY AND SPIRIT!" + "</P>" +
+            "<p>" + healthy[which_healthy_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE HEALTHY IN MIND BODY AND SPIRIT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(healthy[which_healthy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Healthy = function Healthy() {
+        hideSVG();
+        photobomb();
+
+
+        healthy[0] = "Run a marathon";
+        healthy[1] = "Train for an iron man competition";
+        healthy[2] = "Go to the gym";
+        healthy[3] = "plan an adventure trip";
+        healthy[4] = "Eat at a health food restaurant.";
+        healthy[5] = "Cook a healthy meal";
+        healthy[6] = "Conserve energy";
+        healthy[7] = "Take care of your body";
+        healthy[8] = "help some one with yard work";
+
+
+        var which_healthy_quest = Math.round(Math.random() * (healthy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE HEALTHY IN MIND BODY AND SPIRIT!" + "</P>" +
+            "<p>" + healthy[which_healthy_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE HEALTHY IN MIND BODY AND SPIRIT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(healthy[which_healthy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+    function Relaxed() {
+        hideSVG();
+        photobomb();
+
+
+        relaxed[0] = "((((((((((((Good Vibes))))))))))))";
+        relaxed[1] = "Happiness, love, joy, giggles, and grins";
+        relaxed[2] = "Take a bubble bath";
+        relaxed[3] = "Relax evey bone in your body";
+        relaxed[4] = "Hold hands with some one.";
+        relaxed[5] = "Wear flip flops the rest of the day.";
+        relaxed[5] = "Volunteer at a library for the blind.";
+
+        var which_relaxed_quest = Math.round(Math.random() * (relaxed.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + " you...  are... so...  RELAXED :-) " + "</P>" +
+            "<p>" + relaxed[which_relaxed_quest] + " </p>";
+
+        responsiveVoice.speak("you. Are. So. Relaxed.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(relaxed[which_relaxed_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Relaxed = function Relaxed() {
+        hideSVG();
+        photobomb();
+
+
+        relaxed[0] = "((((((((((((Good Vibes))))))))))))";
+        relaxed[1] = "Happiness, love, joy, giggles, and grins";
+        relaxed[2] = "Take a bubble bath";
+        relaxed[3] = "Relax evey bone in your body";
+        relaxed[4] = "Hold hands with some one.";
+        relaxed[5] = "Wear flip flops the rest of the day.";
+        relaxed[5] = "Volunteer at a library for the blind.";
+
+        var which_relaxed_quest = Math.round(Math.random() * (relaxed.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + " you...  are... so...  RELAXED :-) " + "</P>" +
+            "<p>" + relaxed[which_relaxed_quest] + " </p>";
+
+        responsiveVoice.speak("you. Are. So. Relaxed.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(relaxed[which_relaxed_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+    function Powerful() {
+        hideSVG();
+        photobomb();
+
+
+        powerful[0] = "Call the least powerful person you know.";
+        powerful[1] = "Call the most powerful person you know.";
+        powerful[2] = "Volunteer as a mentor.";
+        powerful[3] = "Do some one a favor.";
+        powerful[4] = "help change a tire.";
+        powerful[5] = "give away your parking lot.";
+        powerful[6] = "help some one find a job.";
+        powerful[7] = "volunteer at a homeless shelter.";
+        powerful[8] = "write a letter to some one who has helped you in life.";
+
+
+        var which_powerful_quest = Math.round(Math.random() * (powerful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE POWERFUL!" + "</P>" +
+            "<p>" + powerful[which_powerful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE HEALTHY IN MIND BODY AND SPIRIT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(healthy[which_healthy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Powerful = function Powerful() {
+        hideSVG();
+        photobomb();
+
+
+        powerful[0] = "Call the least powerful person you know.";
+        powerful[1] = "Call the most powerful person you know.";
+        powerful[2] = "Volunteer as a mentor.";
+        powerful[3] = "Do some one a favor.";
+        powerful[4] = "help change a tire.";
+        powerful[5] = "give away your parking lot.";
+        powerful[6] = "help some one find a job.";
+        powerful[7] = "volunteer at a homeless shelter.";
+        powerful[8] = "write a letter to some one who has helped you in life.";
+
+
+        var which_powerful_quest = Math.round(Math.random() * (powerful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE POWERFUL!" + "</P>" +
+            "<p>" + powerful[which_powerful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE HEALTHY IN MIND BODY AND SPIRIT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(healthy[which_healthy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+
+    function Valuable() {
+        hideSVG();
+        photobomb();
+
+
+        valuable[0] = "Insure your ass for a million dollars!";
+        valuable[1] = "Make sure your organ donar card is filled out.";
+        valuable[2] = "Give yourself a raise.  You are worth it.";
+        valuable[3] = "Put on your fancy jewelry.";
+        valuable[4] = "spend time with some one special.";
+        valuable[5] = "reach out to an old friend.";
+        valuable[6] = "organize a lunch for your childs teacher.";
+        valuable[7] = "encourage some one.";
+
+        var which_valuable_quest = Math.round(Math.random() * (valuable.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE VALUABLE!" + "</P>" +
+            "<p>" + valuable[which_valuable_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE VALUABLE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(valuable[which_valuable_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Valuable = function Valuable() {
+        hideSVG();
+        photobomb();
+
+
+        valuable[0] = "Insure your ass for a million dollars!";
+        valuable[1] = "Make sure your organ donar card is filled out.";
+        valuable[2] = "Give yourself a raise.  You are worth it.";
+        valuable[3] = "Put on your fancy jewelry.";
+        valuable[4] = "spend time with some one special.";
+        valuable[5] = "reach out to an old friend.";
+        valuable[6] = "organize a lunch for your childs teacher.";
+        valuable[7] = "encourage some one.";
+
+        var which_valuable_quest = Math.round(Math.random() * (valuable.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE VALUABLE!" + "</P>" +
+            "<p>" + valuable[which_valuable_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE VALUABLE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(valuable[which_valuable_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+
+    function Strong() {
+        hideSVG();
+        photobomb();
+
+
+        strong[0] = "Help some one who is sick.";
+        strong[1] = "Help some one move.";
+        strong[2] = "Visit the gym.";
+        strong[3] = "Admit you are wrong about something.";
+        strong[4] = "help some one load or unload their groceries.";
+        strong[5] = "mowing a neighbor’s lawn.";
+        strong[6] = "praise a co worker.";
+
+
+
+        var which_strong_quest = Math.round(Math.random() * (strong.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE STRONG!" + "</P>" +
+            "<p>" + strong[which_strong_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE STRONG!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(strong[which_strong_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Strong = function Strong() {
+        hideSVG();
+        photobomb();
+
+
+        strong[0] = "Help some one who is sick.";
+        strong[1] = "Help some one move.";
+        strong[2] = "Visit the gym.";
+        strong[3] = "Admit you are wrong about something.";
+        strong[4] = "help some one load or unload their groceries.";
+        strong[5] = "mowing a neighbor’s lawn.";
+        strong[6] = "praise a co worker.";
+
+
+
+        var which_strong_quest = Math.round(Math.random() * (strong.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE STRONG!" + "</P>" +
+            "<p>" + strong[which_strong_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE STRONG!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(strong[which_strong_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Wonderful() {
+        hideSVG();
+        photobomb();
+
+
+        wonderful[0] = "Organize a tea party for the most delightful people you know.";
+        wonderful[1] = "Call up the dreamiest person you know";
+        wonderful[2] = "Compliment three of the most wonderful people in your social network.  Tell them how marvelous they are.";
+        wonderful[3] = "Go on a hot air balloon trip";
+        wonderful[4] = "buy something for the person behind you in line";
+        wonderful[5] = "cooking dinner for a friend";
+        wonderful[6] = "share fresh produce with your neighbors";
+
+        var which_wonderful_quest = Math.round(Math.random() * (wonderful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE WONDERFUL!" + "</P>" +
+            "<p>" + wonderful[which_wonderful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE WONDERFUL!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(wonderful[which_wonderful_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Wonderful = function Wonderful() {
+        hideSVG();
+        photobomb();
+
+        wonderful[0] = "Organize a tea party for the most delightful people you know.";
+        wonderful[1] = "Call up the dreamiest person you know";
+        wonderful[2] = "Compliment three of the most wonderful people in your social network.  Tell them how marvelous they are.";
+        wonderful[3] = "Go on a hot air balloon trip";
+        wonderful[4] = "buy something for the person behind you in line";
+        wonderful[5] = "cooking dinner for a friend";
+        wonderful[6] = "share fresh produce with your neighbors";
+
+        var which_wonderful_quest = Math.round(Math.random() * (wonderful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE WONDERFUL!" + "</P>" +
+            "<p>" + wonderful[which_wonderful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE WONDERFUL!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(wonderful[which_wonderful_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Sexy() {
+        hideSVG();
+        photobomb();
+
+
+        sexy[0] = "Read a love poem to some one you love.";
+        sexy[1] = "For the rest of the day, if you see a sexy person, compliment something about them.";
+        sexy[2] = "Eat an erotic pastry.";
+        sexy[3] = "Put on your sexiest outfit.";
+
+
+        var which_sexy_quest = Math.round(Math.random() * (sexy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER SEXY!" + "</P>" +
+            "<p>" + sexy[which_sexy_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER SEXY!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(sexy[which_sexy_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Sexy = function Sexy() {
+        hideSVG();
+        photobomb();
+
+
+        sexy[0] = "Read a love poem to some one you love.";
+        sexy[1] = "For the rest of the day, if you see a sexy person, compliment something about them.";
+        sexy[2] = "Eat an erotic pastry.";
+        sexy[3] = "Put on your sexiest outfit.";
+
+
+        var which_sexy_quest = Math.round(Math.random() * (sexy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER SEXY!" + "</P>" +
+            "<p>" + sexy[which_sexy_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER SEXY!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(sexy[which_sexy_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Growing() {
+        hideSVG();
+        photobomb();
+
+
+        growing[0] = "Apologize to some one.";
+        growing[1] = "Forgive some one.";
+        growing[2] = "Plant a garden.";
+        growing[3] = "Set career goals.";
+        growing[4] = "straighten up a bit.";
+        growing[5] = "write a thank you note.";
+        growing[6] = "be generous with compliments.";
+
+
+        var which_growing_quest = Math.round(Math.random() * (growing.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "every moment...  every second....  you are growing" + "</P>" +
+            "<p>" + growing[which_growing_quest] + " </p>";
+
+        responsiveVoice.speak("every moment.  every second.  you are growing", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(wonderful[which_wonderful_quest], "UK English Male");
+        }, 4000);
+
+    };
+
+    var Growing = function Growing() {
+        hideSVG();
+        photobomb();
+
+
+        growing[0] = "Apologize to some one.";
+        growing[1] = "Forgive some one.";
+        growing[2] = "Plant a garden.";
+        growing[3] = "Set career goals.";
+        growing[4] = "straighten up a bit.";
+        growing[5] = "write a thank you note.";
+        growing[6] = "be generous with compliments.";
+
+
+        var which_growing_quest = Math.round(Math.random() * (growing.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "every moment...  every second....  you are growing" + "</P>" +
+            "<p>" + growing[which_growing_quest] + " </p>";
+
+        responsiveVoice.speak("every moment.  every second.  you are growing", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(wonderful[which_wonderful_quest], "UK English Male");
+        }, 4000);
+
+    };
+
+
+
+    function Successful() {
+        hideSVG();
+        photobomb();
+
+
+        successful[0] = "Make a list of your biggest accomplishments in life.";
+        successful[1] = "Call up the most successful person you know and invite them out to lunch.";
+        successful[2] = "Do a favor for a friend in need.";
+        successful[3] = "Make a list of new goals.";
+        successful[4] = "donate old clothes.";
+        successful[5] = "let some one cut in line.";
+
+        var which_successful_quest = Math.round(Math.random() * (successful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "NOW, YOU ARE SUCCESSFUL!  NOW!" + "</P>" + "<p>" + successful[which_successful_quest] + " </p>";
+
+        responsiveVoice.speak("NOW, YOU ARE SUCCESSFUL!  NOW!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(successful[which_successful_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Successful = function Successful() {
+        hideSVG();
+        photobomb();
+
+
+        successful[0] = "Make a list of your biggest accomplishments in life.";
+        successful[1] = "Call up the most successful person you know and invite them out to lunch.";
+        successful[2] = "Do a favor for a friend in need.";
+        successful[3] = "Make a list of new goals.";
+        successful[4] = "donate old clothes.";
+        successful[5] = "let some one cut in line.";
+
+        var which_successful_quest = Math.round(Math.random() * (successful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "NOW, YOU ARE SUCCESSFUL!  NOW!" + "</P>" + "<p>" + successful[which_successful_quest] + " </p>";
+
+        responsiveVoice.speak("NOW, YOU ARE SUCCESSFUL!  NOW!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(successful[which_successful_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Fierce() {
+        hideSVG();
+        photobomb();
+
+
+        fierce[0] = "Unbutton your shirt another button";
+        fierce[1] = "Challenge some one to indian leg wrestle";
+        fierce[2] = "Go to a Tango club.";
+        fierce[3] = "Go to a play ground and use the monkey bars.";
+        fierce[4] = "Go to a cardio kick boxing class."
+
+        var which_fierce_quest = Math.round(Math.random() * (fierce.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE FIERCE!" + "</P>" + "<p>" + fierce[which_fierce_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE FIERCE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(fierce[which_fierce_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Fierce = function Fierce() {
+        hideSVG();
+        photobomb();
+
+
+        fierce[0] = "Unbutton your shirt another button";
+        fierce[1] = "Challenge some one to indian leg wrestle";
+        fierce[2] = "Go to a Tango club.";
+        fierce[3] = "Go to a play ground and use the monkey bars.";
+        fierce[4] = "Go to a cardio kick boxing class."
+
+        var which_fierce_quest = Math.round(Math.random() * (fierce.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE FIERCE!" + "</P>" + "<p>" + fierce[which_fierce_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE FIERCE!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(fierce[which_fierce_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+
+    function Deliscious() {
+        hideSVG();
+        photobomb();
+
+
+        deliscious[0] = "Pull out an old cook book and go to work.";
+        deliscious[1] = "Visit a new restaurant.";
+        deliscious[2] = "Bring cookies to work";
+        deliscious[3] = "Call up the most deliscious person you know";
+
+
+        var which_deliscious_quest = Math.round(Math.random() * (deliscious.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE MAGICKALY DELISCIOUS!" + "</P>" + "<p>" + deliscious[which_deliscious_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE DELISCIOUS!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(deliscious[which_deliscious_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+    var Deliscious = function Deliscious() {
+        hideSVG();
+        photobomb();
+
+
+        deliscious[0] = "Pull out an old cook book and go to work.";
+        deliscious[1] = "Visit a new restaurant.";
+        deliscious[2] = "Bring cookies to work";
+        deliscious[3] = "Call up the most deliscious person you know";
+
+
+        var which_deliscious_quest = Math.round(Math.random() * (deliscious.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE MAGICKALY DELISCIOUS!" + "</P>" + "<p>" + deliscious[which_deliscious_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE DELISCIOUS!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(deliscious[which_deliscious_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+    function Happy() {
+        hideSVG();
+        photobomb();
+
+
+        happy[0] = "Look in the mirror and say: I am getting happier every second, happier every minute, happier every hour, happeir every day, happier every year.  I am the happiest person on earth!";
+        happy[1] = "Make a list of things you are happy about.";
+        happy[2] = "Say yes to everything and see what happens.";
+        happy[3] = "Seek out the happiest stranger you can find and say hello.";
+        happy[4] = "Spin around three times and go to the happiest person, place or thing you see.";
+        happy[5] = "Call the happies person you know.";
+        happy[6] = "Say: Happy! Happy! Happy!";
+        happy[7] = "Call or visit your happiest friend and tell them of your happiest memory together";
+        happy[8] = "Call or visit your happiest family member and tell them of your happiest memory together";
+        happy[9] = "Listen for the happiest sound in your environment.";
+        happy[10] = "Go call the happiest person you know and go with them to the happiest place in town.";
+        happy[11] = "Give a happy gift to a random person.";
+
+
+
+        var which_happy_quest = Math.round(Math.random() * (happy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "HAPPY TIME!" + "</P>" + "<p>" + happy[which_happy_quest] + " </p>";
+
+        responsiveVoice.speak("HAPPY TIME!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(happy[which_happy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Happy = function Happy() {
+        hideSVG();
+        photobomb();
+
+
+        happy[0] = "Look in the mirror and say: I am getting happier every second, happier every minute, happier every hour, happeir every day, happier every year.  I am the happiest person on earth!";
+        happy[1] = "Make a list of things you are happy about.";
+        happy[2] = "Say yes to everything and see what happens.";
+        happy[3] = "Seek out the happiest stranger you can find and say hello.";
+        happy[4] = "Spin around three times and go to the happiest person, place or thing you see.";
+        happy[5] = "Call the happies person you know.";
+        happy[6] = "Say: Happy! Happy! Happy!";
+        happy[7] = "Call or visit your happiest friend and tell them of your happiest memory together";
+        happy[8] = "Call or visit your happiest family member and tell them of your happiest memory together";
+        happy[9] = "Listen for the happiest sound in your environment.";
+        happy[10] = "Go call the happiest person you know and go with them to the happiest place in town.";
+        happy[11] = "Give a happy gift to a random person.";
+
+
+
+        var which_happy_quest = Math.round(Math.random() * (happy.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "HAPPY TIME!" + "</P>" + "<p>" + happy[which_happy_quest] + " </p>";
+
+        responsiveVoice.speak("HAPPY TIME!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(happy[which_happy_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+
+
+
+    function Confident() {
+        hideSVG();
+        photobomb();
+
+
+        confident[0] = "Put on your most daring outfit.";
+        confident[1] = "Talk to some one you've been avoiding.";
+        confident[2] = "Sell something to some one";
+        confident[3] = "Give a speech.";
+        // LET'S BEGIN
+
+        var which_confident_quest = Math.round(Math.random() * (confident.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE CONFIDENT!!!  AND YOU KNOW YOU ARE CONFIDENT!!!" + "</P>" + "<p>" + confident[which_confident_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE CONFIDENT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(confident[which_confident_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Confident = function Confident() {
+        hideSVG();
+        photobomb();
+
+
+        confident[0] = "Put on your most daring outfit.";
+        confident[1] = "Talk to some one you've been avoiding.";
+        confident[2] = "Sell something to some one";
+        confident[3] = "Give a speech.";
+        // LET'S BEGIN
+
+        var which_confident_quest = Math.round(Math.random() * (confident.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE CONFIDENT!!!  AND YOU KNOW YOU ARE CONFIDENT!!!" + "</P>" + "<p>" + confident[which_confident_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE CONFIDENT!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(confident[which_confident_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+    function Grounded() {
+        hideSVG();
+        photobomb();
+
+        grounded[0] = "Volunteer at a community garden.";
+        grounded[1] = "Cancel your plans for the day.  Take a walk.";
+        grounded[2] = "Visit the most grounded person you know.";
+        grounded[3] = "Meditate on the most grounded moments in your life.";
+        // LET'S BEGIN
+        grounded[4] = "Go to a yoga class.";
+        grounded[5] = "Hug a tree.";
+        grounded[6] = "Play in the mud.";
+        grounded[7] = "Sit on the floor for an hour.";
+        grounded[8] = "Lay on the floor and breath deeply for two minutes.";
+        grounded[9] = "Make sure all your bills are up to date and your accounts are balanced.";
+        grounded[10] = "Make sure you have your retirement plan, life insurance and last will in testiment in order.";
+        grounded[11] = "Spend an afternoon with the most grounded person you know.";
+        grounded[12] = "Reach out to three people in your family and see how they are doing.";
+        grounded[13] = "Take ten deep breaths.";
+        grounded[14] = "Visualize yourself in realtion to the planet.";
+        grounded[15] = "Visualize yourself in realtion to the universe.";
+
+
+        var which_grounded_quest = Math.round(Math.random() * (grounded.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE GROUNDED TO THE EARTH LIKE A MIGHTY REDWOOD" + "</P>" +
+            "<p>" + grounded[which_grounded_quest] + " </p>";
+
+        responsiveVoice.speak("You are here.  You are now. You are bound to the earth.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(grounded[which_grounded_quest], "UK English Male");
+        }, 4000);
+    };
+
+    var Grounded = function Grounded() {
+        hideSVG();
+        photobomb();
+
+        grounded[0] = "Volunteer at a community garden.";
+        grounded[1] = "Cancel your plans for the day.  Take a walk.";
+        grounded[2] = "Visit the most grounded person you know.";
+        grounded[3] = "Meditate on the most grounded moments in your life.";
+        // LET'S BEGIN
+        grounded[4] = "Go to a yoga class.";
+        grounded[5] = "Hug a tree.";
+        grounded[6] = "Play in the mud.";
+        grounded[7] = "Sit on the floor for an hour.";
+        grounded[8] = "Lay on the floor and breath deeply for two minutes.";
+        grounded[9] = "Make sure all your bills are up to date and your accounts are balanced.";
+        grounded[10] = "Make sure you have your retirement plan, life insurance and last will in testiment in order.";
+        grounded[11] = "Spend an afternoon with the most grounded person you know.";
+        grounded[12] = "Reach out to three people in your family and see how they are doing.";
+        grounded[13] = "Take ten deep breaths.";
+        grounded[14] = "Visualize yourself in realtion to the planet.";
+        grounded[15] = "Visualize yourself in realtion to the universe.";
+
+
+        var which_grounded_quest = Math.round(Math.random() * (grounded.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE GROUNDED TO THE EARTH LIKE A MIGHTY REDWOOD" + "</P>" +
+            "<p>" + grounded[which_grounded_quest] + " </p>";
+
+        responsiveVoice.speak("You are here.  You are now. You are bound to the earth.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(grounded[which_grounded_quest], "UK English Male");
+        }, 4000);
+    };
+
+
+
+
+    function Beautiful() {
+        hideSVG();
+        photobomb();
+
+
+        beautiful[0] = "Pose nude for an art class.";
+        beautiful[1] = "Go to an art museum.";
+        beautiful[2] = "Lay on your back and look at the clouds go by.";
+        beautiful[3] = "Put on a beautiful outfit";
+
+        beautiful[4] = "Look in the mirror and say: I am beautiful.";
+        beautiful[5] = "Look in the mirror and say: I am the most beautiful person in the universe.";
+        beautiful[6] = "Talk to the three most beautiful people you know";
+        beautiful[7] = "Go to the most beautiful place in your hneighborhood";
+        beautiful[8] = "Go to an art museum";
+        beautiful[9] = "Go to a garden";
+        beautiful[10] = "Go on a nature hike";
+        beautiful[11] = "Tell some one that they are beautiful";
+        beautiful[11] = "Smile at 3 beautiful people";
+
+
+
+        var which_beautiful_quest = Math.round(Math.random() * (beautiful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO BEAUTIFUL!" + "</P>" +
+            "<p>" + beautiful[which_beautiful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO BEAUTIFUL!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(beautiful[which_beautiful_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Beautiful = function Beautiful() {
+        hideSVG();
+        photobomb();
+
+
+        beautiful[0] = "Pose nude for an art class.";
+        beautiful[1] = "Go to an art museum.";
+        beautiful[2] = "Lay on your back and look at the clouds go by.";
+        beautiful[3] = "Put on a beautiful outfit";
+
+        beautiful[4] = "Look in the mirror and say: I am beautiful.";
+        beautiful[5] = "Look in the mirror and say: I am the most beautiful person in the universe.";
+        beautiful[6] = "Talk to the three most beautiful people you know";
+        beautiful[7] = "Go to the most beautiful place in your hneighborhood";
+        beautiful[8] = "Go to an art museum";
+        beautiful[9] = "Go to a garden";
+        beautiful[10] = "Go on a nature hike";
+        beautiful[11] = "Tell some one that they are beautiful";
+        beautiful[11] = "Smile at 3 beautiful people";
+
+
+
+        var which_beautiful_quest = Math.round(Math.random() * (beautiful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO BEAUTIFUL!" + "</P>" +
+            "<p>" + beautiful[which_beautiful_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO BEAUTIFUL!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(beautiful[which_beautiful_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+
+    function Awesome() {
+        hideSVG();
+        photobomb();
+
+
+        awesome[0] = "Make up your own slang.";
+        awesome[1] = "Blast 80s metal on your car stereo.";
+        awesome[2] = "Show some one your hidden talent";
+        awesome[3] = "Go to a Monster truck show.";
+        awesome[4] = "Go to youtube and listen to Valley Girl by Moon Unit Zappa.";
+        awesome[5] = "Go skateboarding, roller skating or roller blading.";
+        awesome[6] = "Look in the mirror and say: I AM AWESOME.";
+        awesome[7] = "Compliment three internet friends: Totally awesome!";
+
+        var which_awesome_quest = Math.round(Math.random() * (awesome.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE AWESOME!" + "</P>" +
+            "<p>" + awesome[which_awesome_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE AWESOME!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(awesome[which_awesome_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Awesome = function Awesome() {
+        hideSVG();
+        photobomb();
+
+
+        awesome[0] = "Make up your own slang.";
+        awesome[1] = "Blast 80s metal on your car stereo.";
+        awesome[2] = "Show some one your hidden talent";
+        awesome[3] = "Go to a Monster truck show.";
+        awesome[4] = "Go to youtube and listen to Valley Girl by Moon Unit Zappa.";
+        awesome[5] = "Go skateboarding, roller skating or roller blading.";
+        awesome[6] = "Look in the mirror and say: I AM AWESOME.";
+        awesome[7] = "Compliment three internet friends: Totally awesome!";
+
+        var which_awesome_quest = Math.round(Math.random() * (awesome.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE AWESOME!" + "</P>" +
+            "<p>" + awesome[which_awesome_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE AWESOME!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(awesome[which_awesome_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Fantastic() {
+        hideSVG();
+        photobomb();
+
+
+        fantastic[0] = "Go to an art museum and pose next to the statues!";
+        fantastic[1] = "Organize a costume party.";
+        fantastic[2] = "Go to a dog park and shake hands wih all the dogs";
+        fantastic[3] = "Buy a fancy bottle of wine and drink it with bums.";
+        fantastic[4] = "Compliment three internet friends: Thats fantastic!"
+        fantastic[5] = "Look in the mirror and say: I AM SO FANTASTICO!.";
+        fantastic[6] = "Look in the mirror and say: I LOOK FANTASTIC!.";
+        fantastic[7] = "Put on your most fantastic outfit.";
+        fantastic[8] = "Eat a fantastic meal.";
+        fantastic[9] = "Call up the most fantastic person you know.";
+        fantastic[10] = "Make some one a fantastic meal.";
+
+
+        var which_fantastic_quest = Math.round(Math.random() * (fantastic.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO FANTASTICO!" + "</P>" +
+            "<p>" + fantastic[which_fantastic_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO FANTASTIC!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(fantastic[which_fantastic_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Fantastic = function Fantastic() {
+        hideSVG();
+        photobomb();
+
+
+        fantastic[0] = "Go to an art museum and pose next to the statues!";
+        fantastic[1] = "Organize a costume party.";
+        fantastic[2] = "Go to a dog park and shake hands wih all the dogs";
+        fantastic[3] = "Buy a fancy bottle of wine and drink it with bums.";
+        fantastic[4] = "Compliment three internet friends: Thats fantastic!"
+        fantastic[5] = "Look in the mirror and say: I AM SO FANTASTICO!.";
+        fantastic[6] = "Look in the mirror and say: I LOOK FANTASTIC!.";
+        fantastic[7] = "Put on your most fantastic outfit.";
+        fantastic[8] = "Eat a fantastic meal.";
+        fantastic[9] = "Call up the most fantastic person you know.";
+        fantastic[10] = "Make some one a fantastic meal.";
+
+
+        var which_fantastic_quest = Math.round(Math.random() * (fantastic.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO FANTASTICO!" + "</P>" +
+            "<p>" + fantastic[which_fantastic_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO FANTASTIC!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(fantastic[which_fantastic_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+
+    function Peaceful() {
+        hideSVG();
+        photobomb();
+
+
+        peaceful[0] = "Forgive a debt.";
+        peaceful[1] = "Forgive yourself.";
+        peaceful[2] = "Make peace with your worst enemy.";
+        peaceful[3] = "Go for a nice relaxing swim.";
+        peaceful[4] = "Sit and listen to the most distant sound you can hear for three minutes.";
+        peaceful[5] = "Take a walk in the woods.";
+        peaceful[6] = "Take a silent meditation class.";
+        peaceful[7] = "Focus on your breathing for three minutes.";
+        peaceful[8] = "Visit your most peaceful friend.";
+        peaceful[9] = "Remember your three most peaceful memories.";
+        peaceful[10] = "Hug some one.";
+        peaceful[11] = "Say peace instead of goodbye to everyone you meet for the rest of the day.";
+        peaceful[12] = "Visualize world peace.";
+        peaceful[13] = "Apologize for anything you feel guilty about.";
+        peaceful[14] = "Tell yourself: I am at total peace.";
+
+
+        var which_peaceful_quest = Math.round(Math.random() * (peaceful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "(((((((om))))))) peace be with you." + "</P>" +
+            "<p>" + peaceful[which_peaceful_quest] + " </p>";
+
+        responsiveVoice.speak("peace be with you.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(peaceful[which_peaceful_quest], "UK English Male");
+        }, 3000);
+    };
+
+    var Peaceful = function Peaceful() {
+        hideSVG();
+        photobomb();
+
+
+        peaceful[0] = "Forgive a debt.";
+        peaceful[1] = "Forgive yourself.";
+        peaceful[2] = "Make peace with your worst enemy.";
+        peaceful[3] = "Go for a nice relaxing swim.";
+        peaceful[4] = "Sit and listen to the most distant sound you can hear for three minutes.";
+        peaceful[5] = "Take a walk in the woods.";
+        peaceful[6] = "Take a silent meditation class.";
+        peaceful[7] = "Focus on your breathing for three minutes.";
+        peaceful[8] = "Visit your most peaceful friend.";
+        peaceful[9] = "Remember your three most peaceful memories.";
+        peaceful[10] = "Hug some one.";
+        peaceful[11] = "Say peace instead of goodbye to everyone you meet for the rest of the day.";
+        peaceful[12] = "Visualize world peace.";
+        peaceful[13] = "Apologize for anything you feel guilty about.";
+        peaceful[14] = "Tell yourself: I am at total peace.";
+
+
+        var which_peaceful_quest = Math.round(Math.random() * (peaceful.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "(((((((om))))))) peace be with you." + "</P>" +
+            "<p>" + peaceful[which_peaceful_quest] + " </p>";
+
+        responsiveVoice.speak("peace be with you.", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(peaceful[which_peaceful_quest], "UK English Male");
+        }, 3000);
+    };
+
+
+
+    function Lucky() {
+        hideSVG();
+        photobomb();
+
+
+        lucky[0] = "Call up the luckiest person you know and make plans.";
+        lucky[1] = "Make a mental list of all the things you are lucky to enjoy in life.";
+        lucky[2] = "Victory dance!";
+        lucky[3] = "You win again!";
+        lucky[4] = "Give $20 to a random homeless person or a kid.";
+        lucky[5] = "Volunteer at a homeless shelter.";
+        lucky[6] = "Take a friend out to Chinese food, and read fortune cookies together";
+        lucky[7] = "Shout: I WIN!";
+        lucky[8] = "Get a Tarot card reading.";
+        lucky[9] = "Read your horoscope.";
+        lucky[10] = "Compliment three internet friends.  Tell them that they are lucky and why.";
+        lucky[11] = "Consult the I Ching";
+        lucky[12] = "Buy scratch off lottery tickets until you win something and then stop.";
+        lucky[13] = "Organize a game night or poker game with your friends.";
+        lucky[13] = "Share the luck.  Call up the unluckiest person you know and take them out to lunch.";
+
+
+        var which_lucky_quest = Math.round(Math.random() * (lucky.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO LUCKY!" + "</P>" +
+            "<p>" + lucky[which_lucky_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO LUCKY!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(lucky[which_lucky_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var Lucky = function Lucky() {
+        hideSVG();
+        photobomb();
+
+
+        lucky[0] = "Call up the luckiest person you know and make plans.";
+        lucky[1] = "Make a mental list of all the things you are lucky to enjoy in life.";
+        lucky[2] = "Victory dance!";
+        lucky[3] = "You win again!";
+        lucky[4] = "Give $20 to a random homeless person or a kid.";
+        lucky[5] = "Volunteer at a homeless shelter.";
+        lucky[6] = "Take a friend out to Chinese food, and read fortune cookies together";
+        lucky[7] = "Shout: I WIN!";
+        lucky[8] = "Get a Tarot card reading.";
+        lucky[9] = "Read your horoscope.";
+        lucky[10] = "Compliment three internet friends.  Tell them that they are lucky and why.";
+        lucky[11] = "Consult the I Ching";
+        lucky[12] = "Buy scratch off lottery tickets until you win something and then stop.";
+        lucky[13] = "Organize a game night or poker game with your friends.";
+        lucky[13] = "Share the luck.  Call up the unluckiest person you know and take them out to lunch.";
+
+
+        var which_lucky_quest = Math.round(Math.random() * (lucky.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SO LUCKY!" + "</P>" +
+            "<p>" + lucky[which_lucky_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SO LUCKY!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(lucky[which_lucky_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+    function SuperDuper() {
+        hideSVG();
+        photobomb();
+
+
+        superduper[0] = "Cart wheel time!";
+        superduper[1] = "Catch a frizbee in your mouth!!!";
+        superduper[2] = "Roll around on the ground!";
+        superduper[3] = "Go for a joy ride!";
+        superduper[4] = "Shout: Super Duper!  Super Duper!";
+        superduper[5] = "Tell some one you feel super duper.";
+        superduper[6] = "Tell some one that they look super duper.";
+        superduper[7] = "Jump for joy.";
+        superduper[8] = "Give some one a big hug or a powerful hand shake.";
+        superduper[9] = "Compliment every aespect of your life: I love my hair, I love my job, I love my desk, I love my _____";
+        superduper[10] = "Dance a jig.";
+        superduper[11] = "Go sky diving.";
+        superduper[12] = "Use your x-ray vision to see through walls.  See through people's clothing.";
+
+        var which_superduper_quest = Math.round(Math.random() * (superduper.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER! DUPER!!!!!" + "</P>" +
+            "<p>" + superduper[which_superduper_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER! DUPER!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(superduper[which_superduper_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+    var SuperDuper = function SuperDuper() {
+        hideSVG();
+        photobomb();
+
+
+        superduper[0] = "Cart wheel time!";
+        superduper[1] = "Catch a frizbee in your mouth!!!";
+        superduper[2] = "Roll around on the ground!";
+        superduper[3] = "Go for a joy ride!";
+        superduper[4] = "Shout: Super Duper!  Super Duper!";
+        superduper[5] = "Tell some one you feel super duper.";
+        superduper[6] = "Tell some one that they look super duper.";
+        superduper[7] = "Jump for joy.";
+        superduper[8] = "Give some one a big hug or a powerful hand shake.";
+        superduper[9] = "Compliment every aespect of your life: I love my hair, I love my job, I love my desk, I love my _____";
+        superduper[10] = "Dance a jig.";
+        superduper[11] = "Go sky diving.";
+        superduper[12] = "Use your x-ray vision to see through walls.  See through people's clothing.";
+
+        var which_superduper_quest = Math.round(Math.random() * (superduper.length - 1));
+        document.getElementById('back').innerHTML = "<p>" + "YOU ARE SUPER! DUPER!!!!!" + "</P>" +
+            "<p>" + superduper[which_superduper_quest] + " </p>";
+
+        responsiveVoice.speak("YOU ARE SUPER! DUPER!", "UK English Female", {
+            pitch: 1.1
+        });
+        setTimeout(function() {
+            responsiveVoice.speak(superduper[which_superduper_quest], "UK English Male");
+        }, 3000);
+
+    };
+
+
+    var Backlava = document.getElementById('back');
+    // var Screencheck = document.getElementById('square');
+
+    Backlava.addEventListener('click', function(event) {
+        console.log('BACK!!!');
+        document.getElementById('mySquare').style.backgroundImage = "none";
+frontLoader.classList.toggle('invisible');
+
+        // Setting the gradient with the proper prefix
+        // document.getElementById('mySquare').style.backgroundColor = "-webkit-linear-gradient(top, #d2ff52, #91e842)";
+
+
+
+        
+    });
+
+
+
+    var frontLoader = document.querySelector('#front');
+
+
+    function hideSVG() {
+
+        document.querySelector("#card").toggleClassName("flipped");
+document.getElementById('mySquare').style.boxShadow = "none";
+        frontLoader.classList.toggle('invisible');
+
+    };
+
+    if (annyang) {
+
+        console.log("Annyang!!!!");
+        // Let's define a command.
+        var commands1 = {
+            'shut up': function() {
+                responsiveVoice.speak("I LOVE YOU!", "UK English Female", {
+                    pitch: 1.2
+                });
+            }
+        };
+
+        var commands2 = {
+            'loved': Loved,
+            'I am loved': Loved,
+            'winning': Winning,
+            'I am winning': Winning,
+            'free': Free,
+            'I am free': Free,
+            'attractive': Attractive,
+            'I am attractive': Attractive,
+            'healthy': Healthy,
+            'I am healthy': Healthy,
+            'relaxed': Relaxed,
+            'I am relaxed': Relaxed,
+            'fierce': Fierce,
+            'I am fierce': Fierce,
+            'powerful': Powerful,
+            'I am powerful': Powerful,
+            'valuable': Valuable,
+            'I am valuable': Valuable,
+            'strong': Strong,
+            'I am strong': Strong,
+            'wonderful': Wonderful,
+            'I am wonderful': Wonderful,
+            'sexy': Sexy,
+            'I am sexy': Sexy,
+            'growing': Growing,
+            'I am growing': Growing,
+            'successful': Successful,
+            'I am successful': Successful,
+            'deliscious': Deliscious,
+            'I am deliscious': Deliscious,
+            'peaceful': Peaceful,
+            'I am peaceful': Peaceful,
+            'happy': Happy,
+            'I am happy': Happy,
+            'attractive': Attractive,
+            'I am attractive': Attractive,
+            'confident': Confident,
+            'I am confident': Confident,
+            'grounded': Grounded,
+            'I am grounded': Grounded,
+            'beautiful': Beautiful,
+            'I am beautiful': Beautiful,
+            'awesome': Awesome,
+            'I am awesome': Awesome,
+            'fantastic': Fantastic,
+            'I am fantastic': Fantastic,
+            'peaceful': Peaceful,
+            'I am peaceful': Peaceful,
+            'lucky': Lucky,
+            'I am lucky': Lucky,
+            'superduper': SuperDuper,
+            'I am superduper': SuperDuper
+        };
+
+        // Add our commands to annyang
+        annyang.addCommands(commands1);
+        annyang.addCommands(commands2);
+        // Start listening.
+        annyang.start();
+    }
+
+
+})();
+</script>
+
+</html>
