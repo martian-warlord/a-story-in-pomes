@@ -13,10 +13,12 @@
     <link rel="stylesheet" href="css/touch.css" />
     <style media="screen">
     .container {
-        width: 500px;
-        height: 500px;
+/*        width: 500px;
+        height: 500px;*/
+        width: 360px;
+        height: 360px;
         position: relative;
-        margin: 0 auto 40px;
+        /*margin: 0 auto 40px;*/
         border-radius: 0.5em;
         /*border: 1px solid #CCC;*/
         -webkit-perspective: 800px;
@@ -197,13 +199,13 @@
             .emotion_icon {
                 width : 40px;
                 height : 40px;
-                margin-top: 5px;
+                /*margin-top: 5px;*/
                 /*margin-left : 13px;*/
-                margin-left : 35px;
+                /*margin-left : 35px;*/
             }
 
             #emotion_chart, #emotion_icons {
-                margin: 0 auto;
+                /*margin: 0 auto;*/
                 /*width : 400px;*/
             }
 
@@ -707,7 +709,8 @@ var tag;
         ]);
 
     var layout = d3.layout.cloud()
-        .size([480, 480])
+        .size([360, 360])
+        // .size([480, 480])
         .words(["Loved", "Winning", "Attractive", "Healthy", "Relaxed", "Fierce", "Powerful", "Valuable", "Strong", "Wonderful", "Sexy", "Growing", "Successful", "Fierce", "Deliscious", "Peaceful", "Happy", "Confident", "Grounded", "Beautiful", "Awesome", "Fantastic", "Lucky", "SuperDuper", "Free"].map(function(d) {
             return {
                 text: d,
@@ -748,7 +751,7 @@ var tag;
             }) //  ID ADDED HERE FOR MENU SELECTION  
             .attr("text-anchor", "middle")
             .attr("transform", function(d) {
-                return "translate(" + [d.x, d.y + 10] + ")rotate(" + d.rotate + ")";
+                return "translate(" + [d.x + 10, d.y + 15] + ")rotate(" + d.rotate + ")";
             })
             .text(function(d) {
                 return d.text;
