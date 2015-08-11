@@ -98,7 +98,7 @@ window.gest = (function (window) {
 
 	/* @private */
 	dispatchGestEvent = function(_gestEvent) {
-		 console.log(_gestEvent);
+		 // console.log(_gestEvent);
 		var eventObj = utils.createCustomEvent('gest', document);
 
 		//setup the event object with gesture information
@@ -360,11 +360,11 @@ window.gest = (function (window) {
 				// 	settings.debug.context.putImageData(delt, 0, 0);
 				// }
 
-				  console.log("test");
+				  // console.log("test");
 				var mycanvas = document.getElementById('test');
-				console.log("width: " + width);
+				// console.log("width: " + width);
 				mycanvas.width = width;
-				console.log("height: " + height);
+				// console.log("height: " + height);
 				mycanvas.height = height;
 				var mycontext = mycanvas.getContext('2d');
 				mycontext.putImageData(delt, 0, 0);
@@ -592,9 +592,9 @@ window.gest = (function (window) {
 								var width = 300 / settings.videoCompressionRate,
 									height = 225 / settings.videoCompressionRate;
 	
-								console.log("video.getBoundingClientRect().width: " + video.getBoundingClientRect().width);
-								console.log("settings.videoCompressionRate:" + settings.videoCompressionRate );
-								console.log("video.getBoundingClientRect().height: " + video.getBoundingClientRect().height);
+								// console.log("video.getBoundingClientRect().width: " + video.getBoundingClientRect().width);
+								// console.log("settings.videoCompressionRate:" + settings.videoCompressionRate );
+								// console.log("video.getBoundingClientRect().height: " + video.getBoundingClientRect().height);
 								
 								//define canvas sizes
 								canvas.width = width;
