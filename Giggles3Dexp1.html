@@ -73,6 +73,11 @@
         position: absolute;
         border-radius: 0.5em;
         box-shadow: 0 0 0.5em #91e842;
+/*            background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #f9fafa) );
+    background:-moz-linear-gradient( center top, #f9f9f9 5%, #f9fafa 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#f9fafa');
+    background-color:#f9f9f9;*/
+
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
         -o-backface-visibility: hidden;
@@ -86,11 +91,14 @@
     }
     
     #card .back {
+        font-size: 1.5em;
+          /*text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15) !important;*/
         backface-visibility: hidden;
         -webkit-transform: rotateY( 180deg);
         -moz-transform: rotateY( 180deg);
         -o-transform: rotateY( 180deg);
         transform: rotateY( 180deg);
+
     }
     
     p {
@@ -294,36 +302,39 @@
     gest.options.debug(true);
 
 
-    gest.options.subscribeWithCallback(function(gesture) {
-        // console.log(gesture); // BONANZA666
-        var message = '';
-        if (gesture.direction) {
-            message = gesture.direction;
-             console.log(message);
-            var el = document.getElementById('card');
+//     gest.options.subscribeWithCallback(function(gesture) {
+//         // console.log(gesture); // BONANZA666
+//         var message = '';
+//         if (gesture.direction) {
+//             message = gesture.direction;
+//              console.log(message);
+//             var el = document.getElementById('card');
 
-            if (el.classList.contains('flipped')) {
-                // console.log('BACK!!!');
-                document.getElementById('mySquare').style.backgroundImage = "none";
-                var frontLoader = document.querySelector('#front');
-                frontLoader.classList.toggle('invisible');
-                document.querySelector("#card").toggleClassName("flipped");
-            };
-       if(gesture.direction == "Long up"){console.log("Long up Motherfucker: " + gesture.direction);} 
-       if(gesture.direction == "Up"){console.log("Up Motherfucker: " + gesture.direction);} 
-       if(gesture.direction == "Long down"){console.log("Long down Motherfucker: " + gesture.direction);}
-       if(gesture.direction == "Down"){console.log("Down Motherfucker: " + gesture.direction);}
-        if(gesture.direction == "Left"){console.log("Left Motherfucker: " + gesture.direction);} 
-if(gesture.direction == "Right"){console.log("Right Motherfucker: " + gesture.direction);} 
+//             if (el.classList.contains('flipped')) {
+//                 // console.log('BACK!!!');
+//                 document.getElementById('mySquare').style.backgroundImage = "none";
+//                 var frontLoader = document.querySelector('#front');
+//                 frontLoader.classList.toggle('invisible');
+//                 document.querySelector("#card").toggleClassName("flipped");
+//             };
+//        if(gesture.direction == "Long up"){console.log("Long up Motherfucker: " + gesture.direction);} 
+//        if(gesture.direction == "Up"){console.log("Up Motherfucker: " + gesture.direction);} 
+//        if(gesture.direction == "Long down"){console.log("Long down Motherfucker: " + gesture.direction);}
+//        if(gesture.direction == "Down"){console.log("Down Motherfucker: " + gesture.direction);}
+//         if(gesture.direction == "Left"){console.log("Left Motherfucker: " + gesture.direction);
 
 
-        } else {
-            message = gesture.error.message;
+//     } 
+// if(gesture.direction == "Right"){console.log("Right Motherfucker: " + gesture.direction);} 
 
-            console.log(message);
 
-        }
-    });
+//         } else {
+//             message = gesture.error.message;
+
+//             console.log(message);
+
+//         }
+//     });
 
 
     gest.start();

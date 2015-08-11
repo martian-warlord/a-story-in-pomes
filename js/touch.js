@@ -1,4 +1,4 @@
-$(function(){
+$(function() {
 
     var el = document.createElement('div'),
         transformProps = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' '),
@@ -7,15 +7,15 @@ $(function(){
         transitionDurationProp = support(transitionDuration);
 
     function support(props) {
-        for(var i = 0, l = props.length; i < l; i++) {
-            if(typeof el.style[props[i]] !== "undefined") {
+        for (var i = 0, l = props.length; i < l; i++) {
+            if (typeof el.style[props[i]] !== "undefined") {
                 return props[i];
             }
         }
     }
 
     var mouse = {
-            start : {}
+            start: {}
         },
         touch = document.ontouchmove !== undefined,
         viewport = {
@@ -23,15 +23,18 @@ $(function(){
             y: 20,
             el: $('.cube')[0],
             move: function(coords) {
-                if(coords) {
-                    if(typeof coords.x === "number") this.x = coords.x;
-                    if(typeof coords.y === "number") this.y = coords.y;
+                if (coords) {
+                    if (typeof coords.x === "number") this.x = coords.x;
+                    if (typeof coords.y === "number") this.y = coords.y;
                 }
 
-                this.el.style[transformProp] = "rotateX("+this.x+"deg) rotateY("+this.y+"deg)";
+                this.el.style[transformProp] = "rotateX(" + this.x + "deg) rotateY(" + this.y + "deg)";
             },
             reset: function() {
-                this.move({x: 0, y: 0});
+                this.move({
+                    x: 0,
+                    y: 0
+                });
             }
         };
 
@@ -41,25 +44,104 @@ $(function(){
         return d;
     }();
 
+
+    gest.options.subscribeWithCallback(function(gesture) {
+
+
+        // console.log(gesture); // BONANZA666
+        var message = '';
+        if (gesture.direction) {
+            message = gesture.direction;
+            console.log(message);
+            var el = document.getElementById('card');
+
+            if (el.classList.contains('flipped')) {
+                // console.log('BACK!!!');
+                document.getElementById('mySquare').style.backgroundImage = "none";
+                var frontLoader = document.querySelector('#front');
+                frontLoader.classList.toggle('invisible');
+                document.querySelector("#card").toggleClassName("flipped");
+            };
+
+            if (gesture.direction == "Long up") {
+                // console.log("Long up Motherfucker: " + gesture.direction);
+                // console.log(viewport);
+                viewport.move({
+                    x: viewport.x + 180
+                });
+            }
+            if (gesture.direction == "Up") {
+                // console.log("Up Motherfucker: " + gesture.direction);
+                viewport.move({
+                    x: viewport.x + 90
+                });
+            }
+            if (gesture.direction == "Long down") {
+                // console.log("Long down Motherfucker: " + gesture.direction);
+                viewport.move({
+                    x: viewport.x - 180
+                });
+            }
+            if (gesture.direction == "Down") {
+                // console.log("Down Motherfucker: " + gesture.direction);
+                viewport.move({
+                    x: viewport.x - 90
+                });
+            }
+            if (gesture.direction == "Left") {
+                // console.log("Left Motherfucker: " + gesture.direction);
+                viewport.move({
+                    y: viewport.y - 90
+                });
+
+            }
+            if (gesture.direction == "Right") {
+                // console.log("Right Motherfucker: " + gesture.direction);
+                viewport.move({
+                    y: viewport.y + 90
+                });
+            }
+
+
+        } else {
+            message = gesture.error.message;
+
+            console.log(message);
+
+        }
+    });
+
+
+
+
     $(document).keydown(function(evt) {
-        switch(evt.keyCode)
-        {
+
+
+        switch (evt.keyCode) {
             case 37: // left
-                viewport.move({y: viewport.y - 90});
+                viewport.move({
+                    y: viewport.y - 90
+                });
                 break;
 
             case 38: // up
                 evt.preventDefault();
-                viewport.move({x: viewport.x + 90});
+                viewport.move({
+                    x: viewport.x + 90
+                });
                 break;
 
             case 39: // right
-                viewport.move({y: viewport.y + 90});
+                viewport.move({
+                    y: viewport.y + 90
+                });
                 break;
 
             case 40: // down
                 evt.preventDefault();
-                viewport.move({x: viewport.x - 90});
+                viewport.move({
+                    x: viewport.x - 90
+                });
                 break;
 
             case 27: //esc
@@ -71,7 +153,7 @@ $(function(){
         };
     }).bind('mousedown touchstart', function(evt) {
         delete mouse.last;
-        if($(evt.target).is('a, iframe')) {
+        if ($(evt.target).is('a, iframe')) {
             return true;
         }
 
@@ -80,15 +162,18 @@ $(function(){
         mouse.start.y = evt.pageY;
         $(document).bind('mousemove touchmove', function(event) {
             // Only perform rotation if one touch or mouse (e.g. still scale with pinch and zoom)
-            if(!touch || !(event.originalEvent && event.originalEvent.touches.length > 1)) {
+            if (!touch || !(event.originalEvent && event.originalEvent.touches.length > 1)) {
                 event.preventDefault();
                 // Get touch co-ords
                 event.originalEvent.touches ? event = event.originalEvent.touches[0] : null;
-                $('.viewport').trigger('move-viewport', {x: event.pageX, y: event.pageY});
+                $('.viewport').trigger('move-viewport', {
+                    x: event.pageX,
+                    y: event.pageY
+                });
             }
         });
 
-        $(document).bind('mouseup touchend', function () {
+        $(document).bind('mouseup touchend', function() {
             $(document).unbind('mousemove touchmove');
         });
     });
@@ -110,8 +195,8 @@ $(function(){
         }
 
         viewport.move({
-            x: viewport.x + parseInt((mouse.start.y - movedMouse.y)/movementScaleFactor),
-            y: viewport.y - parseInt((mouse.start.x - movedMouse.x)/movementScaleFactor)
+            x: viewport.x + parseInt((mouse.start.y - movedMouse.y) / movementScaleFactor),
+            y: viewport.y - parseInt((mouse.start.x - movedMouse.x) / movementScaleFactor)
         });
 
         mouse.last.x = movedMouse.x;
